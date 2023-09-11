@@ -12,10 +12,10 @@ export const getPosts = () => async (dispatch) => {
 };
 
 export const createPost = (post) => async (dispatch) => {
-  console.log("createPost action", post);
+  // console.log("createPost action", post);
   try {
     const { data } = await api.createPost(post);
-    console.log("createPost data", data);
+    // console.log("createPost data", data);
 
     dispatch({ type: "CREATE", payload: data });
   } catch (error) {
