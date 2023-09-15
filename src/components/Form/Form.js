@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Container,
+} from "@material-ui/core";
 import FileBase from "react-file-base64";
 import useStyles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,12 +20,12 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
-  const [access, setValueState] = useState(''); 
+  const [access, setValueState] = useState("");
   console.log("state", access);
   const post = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const user = JSON.parse(localStorage.getItem("profile"));
   const classes = useStyles();
 
   useEffect(() => {
@@ -60,7 +66,7 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} raised elevation={6}>
       <form
         autoComplete="off"
         noValidate
@@ -76,8 +82,8 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Name"
           fullWidth
           value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
+          onChange={
+            (e) => setPostData({ ...postData, creator: e.target.value })
             // setValueState(e.target.value)
           }
         />
@@ -90,6 +96,56 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
         <TextField
+          name="tags"
+          variant="outlined"
+          label="Fathers Name"
+          fullWidth
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Date of Birth"
+          fullWidth
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Date of Appointment"
+          fullWidth
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Edu. Qualification"
+          fullWidth
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Category"
+          fullWidth
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
+        <TextField
           name="message"
           variant="outlined"
           label="Permanent Address"
@@ -99,14 +155,7 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, message: e.target.value })
           }
         />
-        <TextField
-          name="tags"
-          variant="outlined"
-          label="Edu. Qualification"
-          fullWidth
-          value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
-        />
+
         <div className={classes.fileInput}>
           <FileBase
             type="file"

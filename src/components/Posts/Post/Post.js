@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   CardActions,
+  ButtonBase
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -14,12 +15,25 @@ import moment from "moment";
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../../actions/posts";
+import { useNavigate } from 'react-router-dom';
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const disptach = useDispatch();
+  const navigate = useNavigate();
+  const openPost = (e) => {
+    // dispatch(getPost(post._id, history));
+
+    navigate(`/posts/${post._id}`);
+  };
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
+      <ButtonBase
+        component="span"
+        name="test"
+        className={classes.cardAction}
+        onClick={openPost}
+      >
       <CardMedia
         className={classes.media}
         image={post.selectedFile}
@@ -53,6 +67,7 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
+      </ButtonBase>
       <CardActions className={classes.cardActions}>
         {/* <Button size="small" color="primary" onClick={() => {}}>
           <ThumbUpAltIcon fontSize="small" />
