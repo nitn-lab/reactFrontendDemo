@@ -6,7 +6,7 @@ import {
   AppBar,
   TextField,
   Button,
-  Paper,
+ 
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
@@ -17,11 +17,17 @@ import useStyles from "./styles";
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
+  const [level, setsetLevel] = useState(0);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [addEmployee, setAddEmployee] = useState(true);
   useEffect(() => {
+   const userdetails=JSON.parse(localStorage.getItem("userDetails"));
+
+   console.log("userdetails",userdetails['result']['level'])
+
+   setsetLevel(userdetails['result']['level'])
     dispatch(getPosts());
   }, [currentId, dispatch]);
   const switchMode = () => {
@@ -61,7 +67,7 @@ const Home = () => {
               Search
             </Button>
 
-            <Button
+            {level===1?<Button
               className={classes.searchButton}
               variant="contained"
               color="primary"
@@ -69,7 +75,7 @@ const Home = () => {
               onClick={switchMode}
             >
               Add Emp
-            </Button>
+            </Button>:<p></p>}
           </AppBar>
           {addEmployee ? (
             <Grid container alignItems="stretch" xs={12} sm={6} md={9}>

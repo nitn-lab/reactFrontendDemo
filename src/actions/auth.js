@@ -5,6 +5,7 @@ import * as api from "../api";
 export const signin = (formData, history) => async (dispatch) => {
     try {
       const { data } = await api.signIn(formData);
+      localStorage.setItem("userDetails",JSON.stringify(data))
   
       dispatch({ type: AUTH, data });
   

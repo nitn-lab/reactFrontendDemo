@@ -19,6 +19,7 @@ const initialState = {
   password: "",
   confirmPassword: "",
   empCode: "",
+  level:""
 };
 const Auth = () => {
   const classes = useStyles();
@@ -36,6 +37,8 @@ const Auth = () => {
       dispatch(signup(formData, history));
     } else {
       dispatch(signin(formData, history));
+      
+      
     }
   };
   const handleChange = (e) => {
