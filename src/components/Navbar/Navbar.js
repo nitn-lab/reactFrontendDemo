@@ -39,7 +39,7 @@ const Navbar = () => {
           className={classes.image}
           src={memories}
           alt="memories"
-          height="50"
+          height="70"
         />
         <Typography
           component={Link}

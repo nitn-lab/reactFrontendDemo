@@ -14,9 +14,10 @@ export default makeStyles((theme) => ({
   heading: {
     color: '#000000',
     textDecoration: 'none',
+    marginLeft: 10
   },
   image: {
-    marginLeft: '15px',
+    // marginLeft: '10px',
   },
   toolbar: {
     display: 'flex',

@@ -11,9 +11,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Container maxWidth="lg">
-        <Navbar />
+      <Navbar />
         <Routes>
           {/* <Route path="/auth" exact Component={() => (!user ? <Auth /> : <Navigate  to="/posts" />)} /> */}
+         
           <Route path="/auth" exact Component={Auth} />
           <Route path="/posts" exact Component={Home} />
           <Route path="/posts/:id" exact component={EmployeeDetails} />
