@@ -1,6 +1,10 @@
 import axios from "axios";
 
+<<<<<<< HEAD
 const API = axios.create({ baseURL: "https://reactbackend-demo.onrender.com" });
+=======
+const API = axios.create({ baseURL: 'https://reactbackend-demo.onrender.com/' });
+>>>>>>> 2eb9e98dc3db0e3707f675c9cfd0d930dddca814
 // const url = 'https://reactbackend-demo.onrender.com/posts';
 // const url = 'http://localhost:3000/posts';
 
