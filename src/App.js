@@ -14,10 +14,9 @@ const App = () => {
       <Navbar />
         <Routes>
           {/* <Route path="/auth" exact Component={() => (!user ? <Auth /> : <Navigate  to="/posts" />)} /> */}
-         
           <Route path="/auth" exact Component={Auth} />
           <Route path="/posts" exact Component={Home} />
-          <Route path="/posts/:id" exact component={EmployeeDetails} />
+          <Route path="/posts/:id" exact element={<EmployeeDetails/>} />
         </Routes>
       </Container>
     </BrowserRouter>

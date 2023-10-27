@@ -19,6 +19,8 @@ export default makeStyles((theme) => ({
   fileInput: {
     width: '99%',
     margin: '10px 0',
+    display: 'flex',
+    // flexDirection: 'row'
   },
   buttonSubmit: {
     marginBottom: 10,

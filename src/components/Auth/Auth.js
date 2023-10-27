@@ -16,18 +16,14 @@ import { signin, signup } from "../../actions/auth";
 
 import { ThreeDots } from "react-loader-spinner";
 const initialState = {
-  firstName: "",
-  lastName: "",
   password: "",
-  confirmPassword: "",
-  empCode: "",
-  level:""
+  EmpCode: "",
 };
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState();
   const [loading, setLoading] = useState(true);
   // const isSignup = false;
   const dispatch = useDispatch();
@@ -74,7 +70,7 @@ const Auth = () => {
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              {isSignup && (
+              {/* {isSignup && (
                 <>
                   <Input
                     name="firstName"
@@ -90,7 +86,7 @@ const Auth = () => {
                     half
                   />
                 </>
-              )}
+              )} */}
               <Input
                 name="email"
                 label="Email Address"
@@ -98,10 +94,10 @@ const Auth = () => {
                 type="email"
               />
               <Input
-                name="empCode"
+                name="EmpCode"
                 label="Employee Code"
                 handleChange={handleChange}
-                type="empCode"
+                type="EmpCode"
               />
               <Input
                 name="password"
@@ -110,14 +106,14 @@ const Auth = () => {
                 type={showPassword ? "text" : "password"}
                 handleShowPassword={handleShowPassword}
               />
-              {isSignup && (
+              {/* {isSignup && (
                 <Input
                   name="confirmPassword"
                   label="Repeat Password"
                   handleChange={handleChange}
                   type="password"
                 />
-              )}
+              )} */}
             </Grid>
             <Button
               type="submit"

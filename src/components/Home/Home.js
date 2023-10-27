@@ -14,6 +14,7 @@ import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 // import useStyles from "../../styles";
 import useStyles from "./styles";
+import axios from "axios";
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
@@ -34,6 +35,23 @@ const Home = () => {
     // setFormData(initialState);
     setAddEmployee((prevIsSignup) => !prevIsSignup);
   };
+
+  const SearchRequest = async () => {
+    try {
+      await axios.post('https://reactbackend-demo.onrender.com/alluser/finduser',{
+        query: search
+      })
+      .then(response => {
+        console.log("serach request response", response.data);
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
   return (
     <Grow in>
       <Container maxWidth="xl">
@@ -52,7 +70,7 @@ const Home = () => {
             <TextField
               name="search"
               variant="outlined"
-              label="Search Employee"
+              label="Search Employee by Name / Belt - No / PIS - No"
               fullWidth
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -63,6 +81,7 @@ const Home = () => {
               variant="contained"
               color="primary"
               style={{ marginLeft: 10 }}
+              onClick={() => SearchRequest()}
             >
               Search
             </Button>
