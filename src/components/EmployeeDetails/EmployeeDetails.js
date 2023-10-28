@@ -12,6 +12,11 @@ import MaterialTable from "material-table";
 import { getPost, getPostsBySearch } from "../../actions/posts";
 import useStyles from "./styles";
 import axios from "axios";
+import { usePDF } from "react-to-pdf";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+
 const EmployeeDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const [employeeDetails, setEmployeeDetails] = useState();
@@ -20,12 +25,29 @@ const EmployeeDetails = () => {
   const classes = useStyles();
   const { id } = useParams();
   const { state } = useLocation();
+
+  const [pdfName, setPdfName] = useState("");
+  const { toPDF, targetRef } = usePDF({ filename: `${pdfName.replace(" ", "_")}.pdf` });
   console.log("uselocation", state);
+  const [isStateSet, setIsStateSet] = useState(false);
 
   useEffect(() => {
     findUserById();
   }, [state]);
 
+  const downloadUserData = (name) => {
+    setPdfName(name);
+    console.log(name)
+    console.log(pdfName)
+    setIsStateSet(true);
+    //  if(pdfName){toPDF()}
+  };
+  useEffect(() => {
+    if (isStateSet) {
+     
+      toPDF();
+    }
+  }, [isStateSet]);
   const findUserById = async () => {
     try {
       await axios
@@ -88,11 +110,14 @@ const EmployeeDetails = () => {
 
   // const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
   return (
-    <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
-      <div
-        // className={classes.card}
-        // style={{ display: "flex", justifyContent: "space-between" }}
-      >
+    <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6} ref={targetRef}>
+      <Tooltip title="Export Data as PDF" className="exportData">
+        <IconButton>
+          <SaveAltIcon fontSize="large" color="gray" onClick={() => downloadUserData(employeeDetails.Name)} />
+        </IconButton>
+      </Tooltip>
+
+      <div >
         <div>
           <Typography variant="h6" component="h2" gutterBottom>
             <strong>1. Name:</strong>
@@ -177,7 +202,7 @@ const EmployeeDetails = () => {
               options={{
                 search: false,
                 sorting: false,
-                exportButton: true
+                exportButton: true,
               }}
             />
           </div>
@@ -194,7 +219,7 @@ const EmployeeDetails = () => {
               options={{
                 search: false,
                 sorting: false,
-                exportButton: true
+                exportButton: true,
               }}
             />
           </div>
@@ -210,7 +235,7 @@ const EmployeeDetails = () => {
               options={{
                 search: false,
                 sorting: false,
-                exportButton: true
+                exportButton: true,
               }}
             />
           </div>
@@ -226,7 +251,7 @@ const EmployeeDetails = () => {
               options={{
                 search: false,
                 sorting: false,
-                exportButton: true
+                exportButton: true,
               }}
             />
           </div>
@@ -242,7 +267,7 @@ const EmployeeDetails = () => {
               options={{
                 search: false,
                 sorting: false,
-                exportButton: true
+                exportButton: true,
               }}
             />
           </div>

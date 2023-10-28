@@ -6,3 +6,7 @@ body {
 background-attachment: fixed;
 background-size: contain; */
 }
+.exportData{
+    color: #9e9e9e;
+    float: right;
+}
