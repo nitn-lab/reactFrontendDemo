@@ -1,11 +1,16 @@
 import * as api from "../api";
 
 //Action Creators
+export const searchPost = () => async (rev) => {
+  console.log("searchPost", rev)
+}
 
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
     console.log("all data users", data)
+
+
     dispatch({ type: "FETCH_ALL", payload: data });
   } catch (error) {
     console.log("FETCH_ALL", error.message);

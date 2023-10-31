@@ -4,6 +4,7 @@ import {
   Typography,
   CircularProgress,
   Divider,
+  Button
 } from "@material-ui/core/";
 import {
   MDBCol,
@@ -35,6 +36,8 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import memories from "../../images/memories.png";
 import { ThreeDots } from "react-loader-spinner";
+import Snackbar from "@mui/material/Snackbar";
+import CloseIcon from "@mui/icons-material/Close";
 const EmployeeDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const [employeeDetails, setEmployeeDetails] = useState();
@@ -45,6 +48,7 @@ const EmployeeDetails = () => {
   const { state } = useLocation();
   const [loading, setLoading] = useState(true);
   const [pdfName, setPdfName] = useState("");
+  const [open, setOpen] = React.useState(false);
   const { toPDF, targetRef } = usePDF({
     filename: `${pdfName.replace(" ", "_")}.pdf`,
   });
@@ -60,13 +64,43 @@ const EmployeeDetails = () => {
     console.log(name);
     console.log(pdfName);
     setIsStateSet(true);
+    
     //  if(pdfName){toPDF()}
   };
   useEffect(() => {
     if (isStateSet) {
       toPDF();
+      handleClick()
     }
   }, [isStateSet]);
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    console.log("reason", reason);
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   const findUserById = async () => {
     setLoading(false);
     try {
@@ -146,6 +180,13 @@ const EmployeeDetails = () => {
     >
       {loading ? (
         <>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message="Successfully Downloaded report"
+          action={action}
+        />
           <Tooltip title="Export Data as PDF" className="exportData">
             <IconButton>
               <SaveAltIcon
