@@ -1,6 +1,10 @@
 import axios from "axios";
 
+// <<<<<<< HEAD
 const API = axios.create({ baseURL: "https://reactbackend-demo.onrender.com" });
+// =======
+// const API = axios.create({ baseURL: 'https://reactbackend-demo.onrender.com' });
+// >>>>>>> e3240b2e699899968845958b4aafc63996c0c86c
 // const url = 'https://reactbackend-demo.onrender.com/posts';
 // const url = 'http://localhost:3000/posts';
 
@@ -13,7 +17,7 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
-export const fetchPosts = () => API.get("/alluser/getalluser");
+export const fetchPosts = () => API.get("/posts");
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}`, updatedPost);

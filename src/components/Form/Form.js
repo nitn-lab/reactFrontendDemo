@@ -157,20 +157,20 @@ const Form = ({ currentId, setCurrentId }) => {
   ];
 
   const rewardsColumns = [
-    { title: "Rewarded For", field: "rewardFor" },
-    { title: "By Whom", field: "byWhom" },
-    { title: "Ob_no", field: "Obno" },
+    { title: "Rewarded For", field: "RewardFor" },
+    { title: "By Whom", field: "By_whom" },
+    { title: "Ob_no", field: "OB_No" },
   ];
 
   const punishmentsColumns = [
-    { title: "Punishment For", field: "punishmentFor" },
-    { title: "By Whom", field: "byWhom" },
-    { title: "OB_no", field: "Obno" },
+    { title: "Punishment For", field: "PunismentFor" },
+    { title: "By Whom", field: "ByWhome" },
+    { title: "OB_no", field: "OBNo" },
   ];
 
   const professionalQualificationColumns = [
     { title: "Name of Course/Certification", field: "Course" },
-    { title: "Conducted By", field: "conductedBy" },
+    { title: "Conducted By", field: "ConductedBy" },
     {
       title: "Date of award of certification",
       field: "DateOfAwardofCertification",
