@@ -19,6 +19,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MaterialTable from "material-table";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { Data } from "./jsonData2";
+import moment from "moment";
 const postingList = [];
 
 const rewardsList = [];
@@ -69,85 +75,186 @@ const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
 
   const httpRequest = async () => {
+    console.log("json", Data);
     setLoading(false);
-    const data = {
-      email: postData.email,
-      Name: postData.Name,
-      Rank: postData.Rank,
-      EmpCode: postData.Emp_Code,
-      BeltNo: postData.BeltNo,
-      PSINo: postData.PSINo,
-      ProfileImg: postData.ProfileImg,
-      isAdmin: postData.isAdmin,
-      Level: 0,
-      Password: postData.Password, // if rights
-      FathersOrHusbandsName: postData.FathersOrHusbandsName,
-      Dob: postData.Dob,
-      Doa: postData.Dob,
-      EdnQualification: postData.EdnQualification,
-      Category: "yyy",
-      PermanentAddress: postData.PermanentAddress,
-      Posting: postingData,
-      Rewards: rewardsData,
-      Punishments: punishmentData,
-      CL: postData.CL,
-      EL: postData.EL,
-      HPL: postData.HPL,
-      CCL: postData.CCL,
-      Maternity: postData.Maternity,
-      Others: postData.Others,
-      Qualification: professionalQualification,
-      Training: specialTrainingData,
-    };
-    console.log("data add", data);
-    try {
-      axios
-        .post("https://reactbackend-demo.onrender.com/alluser/adduser", {
-          email: postData.email,
-          Name: postData.Name,
-          Rank: postData.Rank,
-          EmpCode: postData.Emp_Code,
-          BeltNo: postData.BeltNo,
-          PSINo: postData.PSINo,
-          ProfileImg: postData.ProfileImg,
-          isAdmin: postData.isAdmin,
-          Level: 0,
-          Password: postData.Password, // if rights
-          FathersOrHusbandsName: postData.FathersOrHusbandsName,
-          Dob: postData.Dob,
-          Doa: postData.Dob,
-          EdnQualification: postData.EdnQualification,
-          Category: "yyy",
-          PermanentAddress: postData.PermanentAddress,
-          Posting: postingData,
-          Rewards: rewardsData,
-          Punishments: punishmentData,
-          CL: postData.CL,
-          EL: postData.EL,
-          HPL: postData.HPL,
-          CCL: postData.CCL,
-          Maternity: postData.Maternity,
-          Others: postData.Others,
-          Qualification: professionalQualification,
-          Training: specialTrainingData,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          maxBodyLength: Infinity,
-        })
-        .then((resposne) => {
-          console.log("Add Response from Api", resposne.data);
-          setLoading(true);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(true);
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(true);
+    for (var x = 0; x <= Data.length - 1; x++) {
+      console.log("names", Data[x]?.Dob);
+      const dd = moment(Data[x]?.Dob).format("YYYYMMDD");
+      console.log("dd", typeof dd);
+         console.log("ff",moment(dd, "YYYYMMDD").fromNow());
+      const data = {
+        email: postData.email,
+        Name: Data[x]?.Name,
+        Rank: Data[x]?.Designation,
+        EmpCode: Data[x]?.EmpCode.toString(),
+        BeltNo: Data[x]?.BeltNo,
+        PSINo: Data[x]?.PSINo,
+        ProfileImg: postData.ProfileImg,
+        Designation: Data[x]?.Designation,
+        isAdmin: postData.isAdmin,
+        Level: 0,
+        Password: postData.Password, // if rights
+        FathersOrHusbandsName: postData.FathersOrHusbandsName,
+        Dob: Data[x]?.Dob,
+        Doa: Data[x]?.Doa,
+        Dop: Data[x]?.Dop,
+        Gender: Data[x]?.Gender,
+        EdnQualification: postData.EdnQualification,
+        Category: "yyy",
+        PermanentAddress: postData.PermanentAddress,
+        Posting: [{
+          placeOfPosting: Data[x]?.PlaceofPosting,
+          From: Data[x]?.Dop,
+          to: "NA",
+          duration: `${moment(moment(Data[x]?.Dop).format("YYYYMMDD"), "YYYYMMDD").fromNow()}`
+        }],
+        Rewards: rewardsData,
+        Punishments: punishmentData,
+        CL: postData.CL,
+        EL: postData.EL,
+        HPL: postData.HPL,
+        CCL: postData.CCL,
+        Maternity: postData.Maternity,
+        Others: postData.Others,
+        Qualification: professionalQualification,
+        Training: specialTrainingData,
+      };
+      console.log("sens", data);
+      try {
+        axios
+          .post("https://reactbackend-demo.onrender.com/alluser/adduser", {
+            email: postData.email,
+            Name: Data[x]?.Name,
+            Rank: Data[x]?.Designation,
+            EmpCode: Data[x]?.EmpCode.toString(),
+            BeltNo: Data[x]?.BeltNo,
+            PSINo: Data[x]?.EmpCode.toString(),
+            ProfileImg: postData.ProfileImg,
+            isAdmin: postData.isAdmin,
+            Level: "0",
+            Password: postData.Password, // if rights
+            FathersOrHusbandsName: postData.FathersOrHusbandsName,
+            Dob: Data[x]?.Dob,
+            Doa: Data[x]?.Doa,
+            Dop: Data[x]?.Dop,
+            Gender: Data[x]?.Gender,
+            EdnQualification: Data[x]?.EdnQualification,
+            Category: "yyy",
+            PermanentAddress: postData.PermanentAddress,
+            Posting: [{
+              placeOfPosting: Data[x]?.PlaceofPosting,
+              From: Data[x]?.Dop,
+              to: "NA",
+              duration: `${moment(moment(Data[x]?.Dop).format("YYYYMMDD"), "YYYYMMDD").fromNow()}`
+            }],
+            Rewards: rewardsData,
+            Punishments: punishmentData,
+            CL: postData.CL,
+            EL: postData.EL,
+            HPL: postData.HPL,
+            CCL: postData.CCL,
+            Maternity: postData.Maternity,
+            Others: postData.Others,
+            Qualification: professionalQualification,
+            Training: specialTrainingData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            maxBodyLength: Infinity,
+          })
+          .then((resposne) => {
+            console.log("Add Response from Api", resposne.data);
+            setLoading(true);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(true);
+          });
+      } catch (error) {
+        console.log(error);
+        setLoading(true);
+      }
     }
+    // const data = {
+    //   email: postData.email,
+    //   Name: postData.Name,
+    //   Rank: postData.Rank,
+    //   EmpCode: postData.Emp_Code,
+    //   BeltNo: postData.BeltNo,
+    //   PSINo: postData.PSINo,
+    //   ProfileImg: postData.ProfileImg,
+    //   isAdmin: postData.isAdmin,
+    //   Level: 0,
+    //   Password: postData.Password, // if rights
+    //   FathersOrHusbandsName: postData.FathersOrHusbandsName,
+    //   Dob: postData.Dob,
+    //   Doa: postData.Dob,
+    //   EdnQualification: postData.EdnQualification,
+    //   Category: "yyy",
+    //   PermanentAddress: postData.PermanentAddress,
+    //   Posting: postingData,
+    //   Rewards: rewardsData,
+    //   Punishments: punishmentData,
+    //   CL: postData.CL,
+    //   EL: postData.EL,
+    //   HPL: postData.HPL,
+    //   CCL: postData.CCL,
+    //   Maternity: postData.Maternity,
+    //   Others: postData.Others,
+    //   Qualification: professionalQualification,
+    //   Training: specialTrainingData,
+    // };
+    // console.log("data add", data);
+    // try {
+    //   axios
+    //     .post("https://reactbackend-demo.onrender.com/alluser/adduser", {
+    //       email: postData.email,
+    //       Name: postData.Name,
+    //       Rank: postData.Rank,
+    //       EmpCode: postData.Emp_Code,
+    //       BeltNo: postData.BeltNo,
+    //       PSINo: postData.PSINo,
+    //       ProfileImg: postData.ProfileImg,
+    //       isAdmin: postData.isAdmin,
+    //       Level: 0,
+    //       Password: postData.Password, // if rights
+    //       FathersOrHusbandsName: postData.FathersOrHusbandsName,
+    //       Dob: postData.Dob,
+    //       Doa: postData.Dob,
+    //       EdnQualification: postData.EdnQualification,
+    //       Category: "yyy",
+    //       PermanentAddress: postData.PermanentAddress,
+    //       Posting: postingData,
+    //       Rewards: rewardsData,
+    //       Punishments: punishmentData,
+    //       CL: postData.CL,
+    //       EL: postData.EL,
+    //       HPL: postData.HPL,
+    //       CCL: postData.CCL,
+    //       Maternity: postData.Maternity,
+    //       Others: postData.Others,
+    //       Qualification: professionalQualification,
+    //       Training: specialTrainingData,
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       maxBodyLength: Infinity,
+    //     })
+    //     .then((resposne) => {
+    //       console.log("Add Response from Api", resposne.data);
+    //       setLoading(true);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       setLoading(true);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    //   setLoading(true);
+    // }
   };
+
+ 
 
   const positngColumns = [
     { title: "Place of Posting", field: "placeOfPosting" },
@@ -336,6 +443,12 @@ const Form = ({ currentId, setCurrentId }) => {
                     setPostData({ ...postData });
                   }}
                 />
+                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DatePicker"]}>
+                    <DatePicker label="Basic date picker" />
+                  </DemoContainer>
+                </LocalizationProvider> */}
+
                 <TextField
                   name="tags"
                   variant="outlined"

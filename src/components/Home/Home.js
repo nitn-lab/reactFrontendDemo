@@ -34,9 +34,11 @@ const Home = () => {
   useEffect(() => {
     const userdetails = JSON.parse(localStorage.getItem("userDetails"));
 
-    console.log("userdetails", userdetails["result"]["level"]);
+    // console.log("userdetails", userdetails["result"]["level"]);
+    console.log("userdetails", userdetails.result.Level);
 
-    setsetLevel(userdetails["result"]["level"]);
+
+    setsetLevel(userdetails.result.Level);
     dispatch(getPosts());
   }, [currentId, dispatch]);
   const switchMode = () => {
@@ -149,7 +151,7 @@ const Home = () => {
                 Search
               </Button>
 
-              {level === 1 ? (
+              {level === "1" ? (
                 <Button
                   className={classes.searchButton}
                   variant="contained"
