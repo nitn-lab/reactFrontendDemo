@@ -4,7 +4,7 @@ import {
   Typography,
   CircularProgress,
   Divider,
-  Button
+  Button,
 } from "@material-ui/core/";
 import {
   MDBCol,
@@ -34,11 +34,11 @@ import { usePDF } from "react-to-pdf";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import memories from "../../images/memories.png";
+import memories from "../../images/memories.jpeg";
 import { ThreeDots } from "react-loader-spinner";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
-import demopic from '../../images/demopic.png'
+import demopic from "../../images/demopic.png";
 const EmployeeDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const [employeeDetails, setEmployeeDetails] = useState();
@@ -65,13 +65,13 @@ const EmployeeDetails = () => {
     console.log(name);
     console.log(pdfName);
     setIsStateSet(true);
-    
+
     //  if(pdfName){toPDF()}
   };
   useEffect(() => {
     if (isStateSet) {
       toPDF();
-      handleClick()
+      handleClick();
     }
   }, [isStateSet]);
   const handleClick = () => {
@@ -181,13 +181,13 @@ const EmployeeDetails = () => {
     >
       {loading ? (
         <>
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message="Successfully Downloaded report"
-          action={action}
-        />
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message="Successfully Downloaded report"
+            action={action}
+          />
           <Tooltip title="Export Data as PDF" className="exportData">
             <IconButton>
               <SaveAltIcon
@@ -208,13 +208,27 @@ const EmployeeDetails = () => {
                     alt="memories"
                     height="70"
                   />
+                  <Typography
+                    // component={Link}
+                    to="/"
+                    className={classes.heading}
+                    variant="h4"
+                    align="center"
+                    style={{fontWeight: 500}}
+                  >
+                    EMPLOYEE DETAILS
+                  </Typography>
                   <Divider style={{ margin: "20px 0" }} />
                   <MDBRow>
                     <MDBCol lg="4">
                       <MDBCard className="mb-4">
                         <MDBCardBody className="text-center">
                           <MDBCardImage
-                            src={employeeDetails?.ProfileImg === "" ? demopic : employeeDetails?.ProfileImg}
+                            src={
+                              employeeDetails?.ProfileImg === ""
+                                ? demopic
+                                : employeeDetails?.ProfileImg
+                            }
                             alt="avatar"
                             className="rounded-circle"
                             style={{ width: "150px" }}
@@ -285,7 +299,9 @@ const EmployeeDetails = () => {
                             </MDBCol>
                             <MDBCol sm="9">
                               <MDBCardText className="text-muted">
-                                {employeeDetails?.email === '' ? "--" : employeeDetails?.email}
+                                {employeeDetails?.email === ""
+                                  ? "--"
+                                  : employeeDetails?.email}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>
@@ -296,7 +312,9 @@ const EmployeeDetails = () => {
                             </MDBCol>
                             <MDBCol sm="9">
                               <MDBCardText className="text-muted">
-                                {employeeDetails?.FathersOrHusbandsName === '' ? "--" : employeeDetails?.FathersOrHusbandsName}
+                                {employeeDetails?.FathersOrHusbandsName === ""
+                                  ? "--"
+                                  : employeeDetails?.FathersOrHusbandsName}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>
@@ -323,7 +341,7 @@ const EmployeeDetails = () => {
                             </MDBCol>
                           </MDBRow>
                           <hr />
-                          
+
                           <MDBRow>
                             <MDBCol sm="3">
                               <MDBCardText>Gender :</MDBCardText>
@@ -337,7 +355,9 @@ const EmployeeDetails = () => {
                           <hr />
                           <MDBRow>
                             <MDBCol sm="3">
-                              <MDBCardText>Education Qualification :</MDBCardText>
+                              <MDBCardText>
+                                Education Qualification :
+                              </MDBCardText>
                             </MDBCol>
                             <MDBCol sm="9">
                               <MDBCardText className="text-muted">
@@ -352,7 +372,9 @@ const EmployeeDetails = () => {
                             </MDBCol>
                             <MDBCol sm="9">
                               <MDBCardText className="text-muted">
-                                {employeeDetails?.PermanentAddress === '' ? "--" : employeeDetails?.PermanentAddress}
+                                {employeeDetails?.PermanentAddress === ""
+                                  ? "--"
+                                  : employeeDetails?.PermanentAddress}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>
@@ -406,27 +428,51 @@ const EmployeeDetails = () => {
                   <MDBListGroup flush className="rounded-3">
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Casual Leave</MDBCardText>
-                      <MDBCardText>{employeeDetails?.CL === '' ? "--" : employeeDetails?.CL}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.CL === ""
+                          ? "--"
+                          : employeeDetails?.CL}
+                      </MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Child Care Leave (CCL)</MDBCardText>
-                      <MDBCardText>{employeeDetails?.CCL === '' ? "--" : employeeDetails?.CCL}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.CCL === ""
+                          ? "--"
+                          : employeeDetails?.CCL}
+                      </MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Earned Leave (EL)</MDBCardText>
-                      <MDBCardText>{employeeDetails?.EL === '' ? "--" : employeeDetails?.EL}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.EL === ""
+                          ? "--"
+                          : employeeDetails?.EL}
+                      </MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Half-Pay Leave (HPL)</MDBCardText>
-                      <MDBCardText>{employeeDetails?.HPL === '' ? "--" : employeeDetails?.HPL}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.HPL === ""
+                          ? "--"
+                          : employeeDetails?.HPL}
+                      </MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Maternity Leave</MDBCardText>
-                      <MDBCardText>{employeeDetails?.Maternity === '' ? "--" : employeeDetails?.Maternity}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.Maternity === ""
+                          ? "--"
+                          : employeeDetails?.Maternity}
+                      </MDBCardText>
                     </MDBListGroupItem>
                     <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                       <MDBCardText>Others Leave</MDBCardText>
-                      <MDBCardText>{employeeDetails?.Others === '' ? "--" : employeeDetails?.Others}</MDBCardText>
+                      <MDBCardText>
+                        {employeeDetails?.Others === ""
+                          ? "--"
+                          : employeeDetails?.Others}
+                      </MDBCardText>
                     </MDBListGroupItem>
                   </MDBListGroup>
                 </MDBCardBody>

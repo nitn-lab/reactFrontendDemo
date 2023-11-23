@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useStyles from "./styles";
-import memories from "../../images/memories.png";
+import memories from "../../images/memories.jpeg";
 import * as actionType from "../../constants/actionTypes";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
