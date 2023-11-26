@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Radio from "@mui/material/Radio";
 import FileBase from "react-file-base64";
-import useStyles from "./styles";
+import useStyles from "./stylesEdit";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import Accordion from "@mui/material/Accordion";
@@ -21,6 +21,7 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 // import { Data } from "./jsonData2";
 import moment from "moment";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 const postingList = [];
 
 const rewardsList = [];
@@ -35,7 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [postData, setPostData] = useState({
-    email: "a",
+    email: "",
     Name: "",
     Rank: "",
     Emp_Code: "",
@@ -69,7 +70,89 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
+  const { state } = useLocation();
+  console.log("uselocation", state);
+  const [employeeDetails, setEmployeeDetails] = useState();
+  useEffect(() => {
+    findUserById();
+  }, [state]);
 
+  const findUserById = async () => {
+    setLoading(false);
+    try {
+      await axios
+        .get(
+          `https://reactbackend-demo.onrender.com/alluser/finduserbyid/${state}`
+        )
+        .then((response) => {
+          console.log("findById EditPage", response.data);
+          setEmployeeDetails(response.data);
+          setPostData({
+            Name: response.data.Name,
+            email: response.data.email,
+            Rank: response.data.Rank,
+            Emp_Code: response.data.EmpCode,
+            BeltNo: response.data.BeltNo,
+            PSINo: response.data.PSINo,
+            ProfileImg: response.data.ProfileImg,
+            Level: response.data.Level,
+            Password: "", // if rights
+            FathersOrHusbandsName: response.data.FathersOrHusbandsName,
+            Dob: response.data.Dob,
+            Doa: response.data.Doa,
+            EdnQualification: response.data.EdnQualification,
+            Category: response.data.Category,
+            PermanentAddress: response.data.PermanentAddress,
+            CL: response.data.CL,
+            EL: response.data.EL,
+            HPL: response.data.HPL,
+            CCL: response.data.CCL,
+            Maternity: response.data.Maternity,
+            Others: response.data.Others,
+            isAdmin: false,
+            Gender: response.data.Gender,
+          });
+          const a = response?.data?.Posting;
+          a.map((i) => {
+            console.log("i", i);
+            const updatedRows = [...postingData, i];
+            setPostingData(updatedRows)
+          });
+          const b = response?.data?.Rewards;
+          b.map((i) => {
+            console.log("b", i);
+            const updatedRows = [...rewardsData, i];
+            setRewardsData(updatedRows)
+          });
+          const c = response?.data?.Punishments;
+          c.map((i) => {
+            console.log("b", i);
+            const updatedRows = [...punishmentData, i];
+            setPunishmentData(updatedRows)
+          });
+          const d = response?.data?.Qualification;
+          d.map((i) => {
+            console.log("b", i);
+            const updatedRows = [...professionalQualification, i];
+            setProfessionalQualification(updatedRows)
+          });
+          const e = response?.data?.Training;
+          d.map((i) => {
+            console.log("b", i);
+            const updatedRows = [...specialTrainingData, i];
+            setSpecialTrainingData(updatedRows)
+          });
+          setLoading(true);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(true);
+        });
+    } catch (error) {
+      console.log(error);
+      setLoading(true);
+    }
+  };
   const httpRequest = async () => {
     // console.log("json", Data);
     setLoading(false);
@@ -106,42 +189,45 @@ const Form = ({ currentId, setCurrentId }) => {
     console.log("data add", data);
     try {
       axios
-        .post("https://reactbackend-demo.onrender.com/alluser/adduser", {
-          email: postData.email,
-          Name: postData.Name,
-          Rank: postData.Rank,
-          EmpCode: postData.Emp_Code,
-          BeltNo: postData.BeltNo,
-          PSINo: postData.PSINo,
-          ProfileImg: postData.ProfileImg,
-          isAdmin: postData.isAdmin,
-          Level: "0",
-          Gender: postData.Gender,
-          Password: postData.Password, // if rights
-          FathersOrHusbandsName: postData.FathersOrHusbandsName,
-          Dob: postData.Dob,
-          Doa: postData.Dob,
-          EdnQualification: postData.EdnQualification,
-          Category: "yyy",
-          PermanentAddress: postData.PermanentAddress,
-          Posting: postingData,
-          Rewards: rewardsData,
-          Punishments: punishmentData,
-          CL: postData.CL,
-          EL: postData.EL,
-          HPL: postData.HPL,
-          CCL: postData.CCL,
-          Maternity: postData.Maternity,
-          Others: postData.Others,
-          Qualification: professionalQualification,
-          Training: specialTrainingData,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          maxBodyLength: Infinity,
-        })
+        .post(
+          `https://reactbackend-demo.onrender.com/alluser/updateuser/${state}`,
+          {
+            email: postData.email,
+            Name: postData.Name,
+            Rank: postData.Rank,
+            EmpCode: postData.Emp_Code,
+            BeltNo: postData.BeltNo,
+            PSINo: postData.PSINo,
+            ProfileImg: postData.ProfileImg,
+            isAdmin: postData.isAdmin,
+            Level: "0",
+            Gender: postData.Gender,
+            Password: postData.Password, // if rights
+            FathersOrHusbandsName: postData.FathersOrHusbandsName,
+            Dob: postData.Dob,
+            Doa: postData.Dob,
+            EdnQualification: postData.EdnQualification,
+            Category: "yyy",
+            PermanentAddress: postData.PermanentAddress,
+            Posting: postingData,
+            Rewards: rewardsData,
+            Punishments: punishmentData,
+            CL: postData.CL,
+            EL: postData.EL,
+            HPL: postData.HPL,
+            CCL: postData.CCL,
+            Maternity: postData.Maternity,
+            Others: postData.Others,
+            Qualification: professionalQualification,
+            Training: specialTrainingData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            maxBodyLength: Infinity,
+          }
+        )
         .then((resposne) => {
-          console.log("Add Response from Api", resposne.data);
+          console.log("Update Response from Api edit", resposne.data);
           setLoading(true);
         })
         .catch((error) => {
@@ -295,7 +381,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Name"
                   fullWidth
-                  value={postData.creator}
+                  value={postData.Name}
                   onChange={
                     (e) => setPostData({ ...postData, Name: e.target.value })
                     // setValueState(e.target.value)
@@ -306,7 +392,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Belt No"
                   fullWidth
-                  value={postData.creator}
+                  value={postData.BeltNo}
                   onChange={
                     (e) => setPostData({ ...postData, BeltNo: e.target.value })
                     // setValueState(e.target.value)
@@ -317,7 +403,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Pis No"
                   fullWidth
-                  value={postData.creator}
+                  value={postData.PSINo}
                   onChange={
                     (e) => setPostData({ ...postData, PSINo: e.target.value })
                     // setValueState(e.target.value)
@@ -338,7 +424,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Fathers Name"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Rank}
                   onChange={(e) => {
                     postData.FathersOrHusbandsName = e.target.value;
                     setPostData({ ...postData });
@@ -355,7 +441,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Date of Birth YYYY-MM-DD"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Dob}
                   onChange={(e) => {
                     postData.Dob = e.target.value;
                     setPostData({ ...postData });
@@ -367,7 +453,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Date of Appointment YYYY-MM-DD"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Doa}
                   onChange={(e) => {
                     postData.Doa = e.target.value;
                     setPostData({ ...postData });
@@ -378,7 +464,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Edu. Qualification"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.EdnQualification}
                   onChange={(e) => {
                     postData.EdnQualification = e.target.value;
                     setPostData({ ...postData });
@@ -389,7 +475,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Emp_Code"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Emp_Code}
                   onChange={(e) => {
                     postData.Emp_Code = e.target.value;
                     setPostData({ ...postData });
@@ -411,7 +497,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Permanent Address"
                   fullWidth
-                  value={postData.message}
+                  value={postData.PermanentAddress}
                   onChange={(e) =>
                     setPostData({
                       ...postData,
@@ -425,7 +511,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Gender"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Gender}
                   onChange={(e) => {
                     postData.Gender = e.target.value;
                     setPostData({ ...postData });

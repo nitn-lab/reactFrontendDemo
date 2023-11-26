@@ -5,6 +5,7 @@ import {
   CircularProgress,
   Divider,
   Button,
+  Grid,
 } from "@material-ui/core/";
 import {
   MDBCol,
@@ -32,6 +33,7 @@ import useStyles from "./styles";
 import axios from "axios";
 import { usePDF } from "react-to-pdf";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import ModeIcon from "@mui/icons-material/Mode";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import memories from "../../images/memories.jpeg";
@@ -39,6 +41,8 @@ import { ThreeDots } from "react-loader-spinner";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 import demopic from "../../images/demopic.png";
+import Form from "../Form/Form";
+
 const EmployeeDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const [employeeDetails, setEmployeeDetails] = useState();
@@ -55,6 +59,8 @@ const EmployeeDetails = () => {
   });
   console.log("uselocation", state);
   const [isStateSet, setIsStateSet] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
+  const [editable, setEditable] = useState(false);
 
   useEffect(() => {
     findUserById();
@@ -124,6 +130,15 @@ const EmployeeDetails = () => {
     }
   };
 
+  // const Edit = () => {
+  //   history(/)
+  // }
+
+  const switchMode = () => {
+    // setFormData(initialState);
+    history('/Edit',{state: state});
+    // setEditable((editable) => !editable);
+  };
   const positngColumns = [
     { title: "Place of Posting", field: "placeOfPosting" },
     { title: "From", field: "From" },
@@ -192,81 +207,102 @@ const EmployeeDetails = () => {
             <IconButton>
               <SaveAltIcon
                 fontSize="large"
+                color="Blue"
+                onClick={() => downloadUserData(employeeDetails.Name)}
+              />
+            </IconButton>
+            {/* <IconButton>
+              <ModeIcon
+                fontSize="large"
                 color="gray"
                 onClick={() => downloadUserData(employeeDetails.Name)}
+              />
+            </IconButton> */}
+          </Tooltip>
+          <Tooltip title="Edit" className="exportData">
+            <IconButton>
+              <ModeIcon
+                fontSize="large"
+                color="gray"
+                onClick={() => switchMode()}
               />
             </IconButton>
           </Tooltip>
 
           <div>
-            <div>
-              <section style={{ backgroundColor: "#eee" }}>
-                <MDBContainer className="py-5">
-                  <img
-                    className={classes.image}
-                    src={memories}
-                    alt="memories"
-                    height="70"
-                  />
-                  <Typography
-                    // component={Link}
-                    to="/"
-                    className={classes.heading}
-                    variant="h4"
-                    align="center"
-                    style={{fontWeight: 500}}
-                  >
-                    EMPLOYEE DETAILS
-                  </Typography>
-                  <Divider style={{ margin: "20px 0" }} />
-                  <MDBRow>
-                    <MDBCol lg="4">
-                      <MDBCard className="mb-4">
-                        <MDBCardBody className="text-center">
-                          <MDBCardImage
-                            src={
-                              employeeDetails?.ProfileImg === ""
-                                ? demopic
-                                : employeeDetails?.ProfileImg
-                            }
-                            alt="avatar"
-                            className="rounded-circle"
-                            style={{ width: "150px" }}
-                            fluid
-                          />
-                          <p className="text-muted mb-1">
-                            {employeeDetails?.Name}
-                          </p>
-                          <p className="text-muted mb-4">
-                            {employeeDetails?.Rank}
-                          </p>
-                          {/* <div className="d-flex justify-content-center mb-2">
+            {editable ? (
+              <Grid container spacing={3} className={classes.appBarSearch}>
+                <Form currentId={currentId} setCurrentId={setCurrentId} />
+              </Grid>
+            ) : (
+              <div>
+                <section style={{ backgroundColor: "#eee" }}>
+                  <MDBContainer className="py-5">
+                    <img
+                      className={classes.image}
+                      src={memories}
+                      alt="memories"
+                      height="70"
+                    />
+                    <Typography
+                      // component={Link}
+                      to="/"
+                      className={classes.heading}
+                      variant="h4"
+                      align="center"
+                      style={{ fontWeight: 500 }}
+                    >
+                      EMPLOYEE DETAILS
+                    </Typography>
+                    <Divider style={{ margin: "20px 0" }} />
+                    <MDBRow>
+                      <MDBCol lg="4">
+                        <MDBCard className="mb-4">
+                          <MDBCardBody className="text-center">
+                            <MDBCardImage
+                              src={
+                                employeeDetails?.ProfileImg === ""
+                                  ? demopic
+                                  : employeeDetails?.ProfileImg
+                              }
+                              alt="avatar"
+                              className="rounded-circle"
+                              style={{ width: "150px" }}
+                              fluid
+                            />
+                            <p className="text-muted mb-1">
+                              {employeeDetails?.Name}
+                            </p>
+                            <p className="text-muted mb-4">
+                              {employeeDetails?.Rank}
+                            </p>
+                            {/* <div className="d-flex justify-content-center mb-2">
                         <MDBBtn>Follow</MDBBtn>
                         <MDBBtn outline className="ms-1">
                           Message
                         </MDBBtn>
                       </div> */}
-                          <MDBRow className="d-flex justify-content-center mb-2">
-                            <MDBCol sm="3">
-                              <MDBCardText>Emp Code:</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.EmpCode}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <MDBRow className="d-flex justify-content-center mb-2">
-                            <MDBCol sm="3">
-                              <MDBCardText>Belt No:</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.BeltNo}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          {/* <MDBRow className="d-flex justify-content-center mb-2">
+                            <MDBRow className="d-flex justify-content-center mb-2">
+                              <MDBCol sm="3">
+                                <MDBCardText>Emp Code:</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.EmpCode}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow className="d-flex justify-content-center mb-2">
+                              <MDBCol sm="3">
+                                <MDBCardText>Belt No:</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.BeltNo}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            {/* <MDBRow className="d-flex justify-content-center mb-2">
                             <MDBCol sm="3">
                               <MDBCardText>Pis No:</MDBCardText>
                             </MDBCol>
@@ -276,50 +312,50 @@ const EmployeeDetails = () => {
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow> */}
-                        </MDBCardBody>
-                      </MDBCard>
-                    </MDBCol>
-                    <MDBCol lg="8">
-                      <MDBCard className="mb-4">
-                        <MDBCardBody>
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Full Name</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Name}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Email</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.email === ""
-                                  ? "--"
-                                  : employeeDetails?.email}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Fathers Name</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.FathersOrHusbandsName === ""
-                                  ? "--"
-                                  : employeeDetails?.FathersOrHusbandsName}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          {/* <MDBRow>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol lg="8">
+                        <MDBCard className="mb-4">
+                          <MDBCardBody>
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Full Name</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Name}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Email</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.email === ""
+                                    ? "--"
+                                    : employeeDetails?.email}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Fathers Name</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.FathersOrHusbandsName === ""
+                                    ? "--"
+                                    : employeeDetails?.FathersOrHusbandsName}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            {/* <MDBRow>
                             <MDBCol sm="3">
                               <MDBCardText>Emp Code:</MDBCardText>
                             </MDBCol>
@@ -330,235 +366,236 @@ const EmployeeDetails = () => {
                             </MDBCol>
                           </MDBRow>
                           <hr /> */}
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Date of Birth :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Dob}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Date of Birth :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Dob}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
 
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Gender :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Gender}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>
-                                Education Qualification :
-                              </MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.EdnQualification}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Address :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.PermanentAddress === ""
-                                  ? "--"
-                                  : employeeDetails?.PermanentAddress}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Date of Appointment :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Doa}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Date of Posting :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Dop}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                          <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Place of Posting :</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.Posting[0].placeOfPosting}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr />
-                        </MDBCardBody>
-                      </MDBCard>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBContainer>
-              </section>
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Gender :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Gender}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>
+                                  Education Qualification :
+                                </MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.EdnQualification}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Address :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.PermanentAddress === ""
+                                    ? "--"
+                                    : employeeDetails?.PermanentAddress}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Date of Appointment :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Doa}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Date of Posting :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Dop}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Place of Posting :</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">
+                                  {employeeDetails?.Posting[0].placeOfPosting}
+                                </MDBCardText>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr />
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </section>
 
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Leaves Details</strong>
-              </Typography>
-              <MDBCard className="mb-4 mb-lg-0">
-                <MDBCardBody className="p-0">
-                  <MDBListGroup flush className="rounded-3">
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Casual Leave</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.CL === ""
-                          ? "--"
-                          : employeeDetails?.CL}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Child Care Leave (CCL)</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.CCL === ""
-                          ? "--"
-                          : employeeDetails?.CCL}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Earned Leave (EL)</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.EL === ""
-                          ? "--"
-                          : employeeDetails?.EL}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Half-Pay Leave (HPL)</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.HPL === ""
-                          ? "--"
-                          : employeeDetails?.HPL}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Maternity Leave</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.Maternity === ""
-                          ? "--"
-                          : employeeDetails?.Maternity}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Others Leave</MDBCardText>
-                      <MDBCardText>
-                        {employeeDetails?.Others === ""
-                          ? "--"
-                          : employeeDetails?.Others}
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                  </MDBListGroup>
-                </MDBCardBody>
-              </MDBCard>
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Posting Details</strong>
-              </Typography>
-              <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                  title="Posting Data"
-                  data={employeeDetails?.Posting}
-                  columns={positngColumns}
-                  options={{
-                    search: false,
-                    sorting: false,
-                    exportButton: true,
-                  }}
-                />
-              </div>
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Leaves Details</strong>
+                </Typography>
+                <MDBCard className="mb-4 mb-lg-0">
+                  <MDBCardBody className="p-0">
+                    <MDBListGroup flush className="rounded-3">
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Casual Leave</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.CL === ""
+                            ? "--"
+                            : employeeDetails?.CL}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Child Care Leave (CCL)</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.CCL === ""
+                            ? "--"
+                            : employeeDetails?.CCL}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Earned Leave (EL)</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.EL === ""
+                            ? "--"
+                            : employeeDetails?.EL}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Half-Pay Leave (HPL)</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.HPL === ""
+                            ? "--"
+                            : employeeDetails?.HPL}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Maternity Leave</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.Maternity === ""
+                            ? "--"
+                            : employeeDetails?.Maternity}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <MDBCardText>Others Leave</MDBCardText>
+                        <MDBCardText>
+                          {employeeDetails?.Others === ""
+                            ? "--"
+                            : employeeDetails?.Others}
+                        </MDBCardText>
+                      </MDBListGroupItem>
+                    </MDBListGroup>
+                  </MDBCardBody>
+                </MDBCard>
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Posting Details</strong>
+                </Typography>
+                <div style={{ maxWidth: "100%" }}>
+                  <MaterialTable
+                    title="Posting Data"
+                    data={employeeDetails?.Posting}
+                    columns={positngColumns}
+                    options={{
+                      search: false,
+                      sorting: false,
+                      exportButton: true,
+                    }}
+                  />
+                </div>
 
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Rewards</strong>
-              </Typography>
-              <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                  title="Rewards Data"
-                  data={employeeDetails?.Rewards}
-                  columns={rewardsColumns}
-                  options={{
-                    search: false,
-                    sorting: false,
-                    exportButton: true,
-                  }}
-                />
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Rewards</strong>
+                </Typography>
+                <div style={{ maxWidth: "100%" }}>
+                  <MaterialTable
+                    title="Rewards Data"
+                    data={employeeDetails?.Rewards}
+                    columns={rewardsColumns}
+                    options={{
+                      search: false,
+                      sorting: false,
+                      exportButton: true,
+                    }}
+                  />
+                </div>
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Punishments</strong>
+                </Typography>
+                <div style={{ maxWidth: "100%" }}>
+                  <MaterialTable
+                    title="Punishments Data"
+                    data={employeeDetails?.Punishments}
+                    columns={punishmentsColumns}
+                    options={{
+                      search: false,
+                      sorting: false,
+                      exportButton: true,
+                    }}
+                  />
+                </div>
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Qualification</strong>
+                </Typography>
+                <div style={{ maxWidth: "100%" }}>
+                  <MaterialTable
+                    title="Qualification Data"
+                    data={employeeDetails?.Qualification}
+                    columns={professionalQualificationColumns}
+                    options={{
+                      search: false,
+                      sorting: false,
+                      exportButton: true,
+                    }}
+                  />
+                </div>
+                <Divider style={{ margin: "20px 0" }} />
+                <Typography variant="h6" gutterBottom>
+                  <strong>Special Training</strong>
+                </Typography>
+                <div style={{ maxWidth: "100%" }}>
+                  <MaterialTable
+                    title="Training Data"
+                    data={employeeDetails?.Training}
+                    columns={SpecialTrainingColumns}
+                    options={{
+                      search: false,
+                      sorting: false,
+                      exportButton: true,
+                    }}
+                  />
+                </div>
               </div>
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Punishments</strong>
-              </Typography>
-              <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                  title="Punishments Data"
-                  data={employeeDetails?.Punishments}
-                  columns={punishmentsColumns}
-                  options={{
-                    search: false,
-                    sorting: false,
-                    exportButton: true,
-                  }}
-                />
-              </div>
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Qualification</strong>
-              </Typography>
-              <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                  title="Qualification Data"
-                  data={employeeDetails?.Qualification}
-                  columns={professionalQualificationColumns}
-                  options={{
-                    search: false,
-                    sorting: false,
-                    exportButton: true,
-                  }}
-                />
-              </div>
-              <Divider style={{ margin: "20px 0" }} />
-              <Typography variant="h6" gutterBottom>
-                <strong>Special Training</strong>
-              </Typography>
-              <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                  title="Training Data"
-                  data={employeeDetails?.Training}
-                  columns={SpecialTrainingColumns}
-                  options={{
-                    search: false,
-                    sorting: false,
-                    exportButton: true,
-                  }}
-                />
-              </div>
-            </div>
+            )}
           </div>
         </>
       ) : (

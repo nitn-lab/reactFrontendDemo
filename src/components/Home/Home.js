@@ -135,7 +135,7 @@ const Home = () => {
               <TextField
                 name="search"
                 variant="outlined"
-                label="Search Employee by Name / Belt - No / PIS - No"
+                label="Search Employee by Name / Belt - No"
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

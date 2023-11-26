@@ -6,6 +6,7 @@ import EmployeeDetails from "./components/EmployeeDetails/EmployeeDetails";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
+import EditForm from "../src/components/EmployeeDetails/EditForm";
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/auth" exact Component={Auth} />
           <Route path="/posts" exact Component={Home} />
           <Route path="/posts/:id" exact element={<EmployeeDetails/>} />
+          <Route path="/Edit" exact element={<EditForm/>} />
         </Routes>
       </Container>
     </BrowserRouter>
