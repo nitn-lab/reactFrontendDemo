@@ -736,12 +736,12 @@ const Form = ({ currentId, setCurrentId }) => {
               id="panel4bh-header"
             >
               <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                Professional Qualification
+              Professional Qualifications
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <MaterialTable
-                title="Qualification Data"
+                title="Additional Qualifications"
                 data={professionalQualification}
                 columns={professionalQualificationColumns}
                 editable={{

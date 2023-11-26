@@ -443,7 +443,7 @@ const EmployeeDetails = () => {
                               </MDBCol>
                               <MDBCol sm="9">
                                 <MDBCardText className="text-muted">
-                                  {employeeDetails?.Posting[0].placeOfPosting}
+                                  {employeeDetails?.Posting[employeeDetails?.Posting.length - 1].placeOfPosting}
                                 </MDBCardText>
                               </MDBCol>
                             </MDBRow>
@@ -564,11 +564,11 @@ const EmployeeDetails = () => {
                 </div>
                 <Divider style={{ margin: "20px 0" }} />
                 <Typography variant="h6" gutterBottom>
-                  <strong>Qualification</strong>
+                  <strong>Professional Qualifications</strong>
                 </Typography>
                 <div style={{ maxWidth: "100%" }}>
                   <MaterialTable
-                    title="Qualification Data"
+                    title="Additional Qualifications"
                     data={employeeDetails?.Qualification}
                     columns={professionalQualificationColumns}
                     options={{

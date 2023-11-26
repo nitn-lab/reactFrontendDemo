@@ -414,7 +414,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Rank"
                   fullWidth
-                  value={postData.title}
+                  value={postData.Rank}
                   onChange={(e) =>
                     setPostData({ ...postData, Rank: e.target.value })
                   }
@@ -424,7 +424,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Fathers Name"
                   fullWidth
-                  value={postData.Rank}
+                  value={postData.FathersOrHusbandsName}
                   onChange={(e) => {
                     postData.FathersOrHusbandsName = e.target.value;
                     setPostData({ ...postData });
@@ -822,12 +822,12 @@ const Form = ({ currentId, setCurrentId }) => {
               id="panel4bh-header"
             >
               <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                Professional Qualification
+                Professional Qualifications
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <MaterialTable
-                title="Qualification Data"
+                title="Additional Qualifications"
                 data={professionalQualification}
                 columns={professionalQualificationColumns}
                 editable={{
