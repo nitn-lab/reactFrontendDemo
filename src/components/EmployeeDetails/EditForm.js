@@ -72,6 +72,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const { state } = useLocation();
   console.log("uselocation", state);
+  const history = useNavigate();
   const [employeeDetails, setEmployeeDetails] = useState();
   useEffect(() => {
     findUserById();
@@ -113,35 +114,29 @@ const Form = ({ currentId, setCurrentId }) => {
             Gender: response.data.Gender,
           });
           const a = response?.data?.Posting;
-          a.map((i) => {
-            console.log("i", i);
-            const updatedRows = [...postingData, i];
-            setPostingData(updatedRows)
-          });
+
+          for (var i = 0; i <= a.length - 1; i++) {
+            postingData.push(a[i]);
+          }
           const b = response?.data?.Rewards;
-          b.map((i) => {
-            console.log("b", i);
-            const updatedRows = [...rewardsData, i];
-            setRewardsData(updatedRows)
-          });
+          for (var i = 0; i <= b.length - 1; i++) {
+            rewardsData.push(b[i]);
+          }
+
           const c = response?.data?.Punishments;
-          c.map((i) => {
-            console.log("b", i);
-            const updatedRows = [...punishmentData, i];
-            setPunishmentData(updatedRows)
-          });
+          for (var i = 0; i <= c.length - 1; i++) {
+            punishmentData.push(c[i]);
+          }
           const d = response?.data?.Qualification;
-          d.map((i) => {
-            console.log("b", i);
-            const updatedRows = [...professionalQualification, i];
-            setProfessionalQualification(updatedRows)
-          });
+          for (var i = 0; i <= d.length - 1; i++) {
+            professionalQualification.push(d[i]);
+          }
+
           const e = response?.data?.Training;
-          d.map((i) => {
-            console.log("b", i);
-            const updatedRows = [...specialTrainingData, i];
-            setSpecialTrainingData(updatedRows)
-          });
+          for (var i = 0; i <= e.length - 1; i++) {
+            specialTrainingData.push(e[i]);
+          }
+
           setLoading(true);
         })
         .catch((error) => {
@@ -228,6 +223,7 @@ const Form = ({ currentId, setCurrentId }) => {
         )
         .then((resposne) => {
           console.log("Update Response from Api edit", resposne.data);
+          history('/posts');
           setLoading(true);
         })
         .catch((error) => {
