@@ -60,13 +60,13 @@ const Form = ({ currentId, setCurrentId }) => {
     isAdmin: false,
     Gender: "",
   });
-  const [postingData, setPostingData] = useState(postingList);
-  const [rewardsData, setRewardsData] = useState(rewardsList);
-  const [punishmentData, setPunishmentData] = useState(punishmentList);
+  const [postingData, setPostingData] = useState([]);
+  const [rewardsData, setRewardsData] = useState([]);
+  const [punishmentData, setPunishmentData] = useState([]);
   const [specialTrainingData, setSpecialTrainingData] =
     useState(specialTrainingList);
   const [professionalQualification, setProfessionalQualification] = useState(
-    professionalQualificationList
+    []
   );
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
@@ -76,18 +76,19 @@ const Form = ({ currentId, setCurrentId }) => {
   const [employeeDetails, setEmployeeDetails] = useState();
   useEffect(() => {
     findUserById();
-  }, [state]);
+    console.log("i fire once");
+  }, []);
 
-  const findUserById = async () => {
+  const findUserById = () => {
     setLoading(false);
     try {
-      await axios
+      axios
         .get(
           `https://reactbackend-demo.onrender.com/alluser/finduserbyid/${state}`
         )
         .then((response) => {
           console.log("findById EditPage", response.data);
-          setEmployeeDetails(response.data);
+          // setEmployeeDetails(response.data);
           setPostData({
             Name: response.data.Name,
             email: response.data.email,
@@ -113,29 +114,7 @@ const Form = ({ currentId, setCurrentId }) => {
             isAdmin: false,
             Gender: response.data.Gender,
           });
-          const a = response?.data?.Posting;
-
-          for (var i = 0; i <= a.length - 1; i++) {
-            postingData.push(a[i]);
-          }
-          const b = response?.data?.Rewards;
-          for (var i = 0; i <= b.length - 1; i++) {
-            rewardsData.push(b[i]);
-          }
-
-          const c = response?.data?.Punishments;
-          for (var i = 0; i <= c.length - 1; i++) {
-            punishmentData.push(c[i]);
-          }
-          const d = response?.data?.Qualification;
-          for (var i = 0; i <= d.length - 1; i++) {
-            professionalQualification.push(d[i]);
-          }
-
-          const e = response?.data?.Training;
-          for (var i = 0; i <= e.length - 1; i++) {
-            specialTrainingData.push(e[i]);
-          }
+          Setting(response.data);
 
           setLoading(true);
         })
@@ -146,6 +125,32 @@ const Form = ({ currentId, setCurrentId }) => {
     } catch (error) {
       console.log(error);
       setLoading(true);
+    }
+  };
+
+  const Setting = (data) => {
+    const a = data?.Posting;
+    console.log("gghhfc", postingData);
+    for (var i = 0; i <= a.length - 1; i++) {
+      postingData.push(a[i]);
+    }
+    const b = data?.Rewards;
+    for (var i = 0; i <= b.length - 1; i++) {
+      rewardsData.push(b[i]);
+    }
+
+    const c = data?.Punishments;
+    for (var i = 0; i <= c.length - 1; i++) {
+      punishmentData.push(c[i]);
+    }
+    const d = data?.Qualification;
+    for (var i = 0; i <= d.length - 1; i++) {
+      professionalQualification.push(d[i]);
+    }
+
+    const e = data?.Training;
+    for (var i = 0; i <= e.length - 1; i++) {
+      specialTrainingData.push(e[i]);
     }
   };
   const httpRequest = async () => {
@@ -200,7 +205,7 @@ const Form = ({ currentId, setCurrentId }) => {
             Password: postData.Password, // if rights
             FathersOrHusbandsName: postData.FathersOrHusbandsName,
             Dob: postData.Dob,
-            Doa: postData.Dob,
+            Doa: postData.Doa,
             EdnQualification: postData.EdnQualification,
             Category: "yyy",
             PermanentAddress: postData.PermanentAddress,
@@ -223,7 +228,7 @@ const Form = ({ currentId, setCurrentId }) => {
         )
         .then((resposne) => {
           console.log("Update Response from Api edit", resposne.data);
-          history('/posts');
+          history("/posts");
           setLoading(true);
         })
         .catch((error) => {
@@ -275,17 +280,17 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
 
-  const user = JSON.parse(localStorage.getItem("profile"));
+  // const user = JSON.parse(localStorage.getItem("profile"));
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  useEffect(() => {
-    if (post) {
-      setPostData(post);
-    }
-  }, [post]);
+  // useEffect(() => {
+  //   if (post) {
+  //     setPostData(post);
+  //   }
+  // }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
