@@ -64,7 +64,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const [rewardsData, setRewardsData] = useState([]);
   const [punishmentData, setPunishmentData] = useState([]);
   const [specialTrainingData, setSpecialTrainingData] =
-    useState(specialTrainingList);
+    useState([]);
   const [professionalQualification, setProfessionalQualification] = useState(
     []
   );
