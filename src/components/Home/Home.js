@@ -171,13 +171,13 @@ const Home = () => {
                 searchData?.map((p) => {
                   console.log("searchPost map", p);
                   return (
-                    <Grid key={p._id} item xs={12} sm={6} md={6} lg={3}>
+                    <Grid key={p._id} item xs={12} sm={12} md={12} lg={2}>
                       <Post post={p} setCurrentId={setCurrentId} />
                     </Grid>
                   );
                 })
               ) : (
-                <Grid container alignItems="stretch" xs={12} sm={6} md={9}>
+                <Grid container alignItems="stretch" xs={12} sm={12} md={12}>
                   <Posts setCurrentId={setCurrentId} />
                 </Grid>
               )

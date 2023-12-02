@@ -59,7 +59,7 @@ const Posts = ({ setCurrentId }) => {
         </div>
   ) : (
     <Grid
-      className={classes.container}
+      // className={classes.container}
       container
       alignItems="stretch"
       spacing={3}
