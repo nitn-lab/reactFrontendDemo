@@ -749,7 +749,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Casual Leave"
                   fullWidth
-                  value={postData.creator}
+                  value={postData.CL}
                   onChange={(e) => {
                     postData.CL = e.target.value;
                     setPostData({ ...postData });
@@ -760,7 +760,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Earned Leaves"
                   fullWidth
-                  value={postData.creator}
+                  value={postData.EL}
                   onChange={(e) => {
                     postData.EL = e.target.value;
                     setPostData({ ...postData });
@@ -771,7 +771,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="HPL"
                   fullWidth
-                  value={postData.title}
+                  value={postData.HPL}
                   onChange={(e) => {
                     postData.HPL = e.target.value;
                     setPostData({ ...postData });
@@ -782,7 +782,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="CCL"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.CCL}
                   onChange={(e) => {
                     postData.CCL = e.target.value;
                     setPostData({ ...postData });
@@ -793,7 +793,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Maternity"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Maternity}
                   onChange={(e) => {
                     postData.Maternity = e.target.value;
                     setPostData({ ...postData });
@@ -804,7 +804,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   variant="outlined"
                   label="Others"
                   fullWidth
-                  value={postData.tags}
+                  value={postData.Others}
                   onChange={(e) => {
                     postData.Others = e.target.value;
                     setPostData({ ...postData });
