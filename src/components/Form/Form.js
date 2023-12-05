@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [postData, setPostData] = useState({
-    email: "a",
+    email: "",
     Name: "",
     Rank: "",
     Emp_Code: "",

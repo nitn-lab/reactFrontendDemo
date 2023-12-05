@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     // height: "100%",
     // maxHeight: '200px',
   },
+  font: {
+    // font-family: 'Poppins', sans-serif,
+    fontFamily: 'Poppins'
+  },
   card: {
     display: "flex",
     // flexDirection: "row",

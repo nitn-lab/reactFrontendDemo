@@ -6,7 +6,7 @@ import {
   Button,
   Typography,
   CardActions,
-  ButtonBase
+  ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -15,7 +15,7 @@ import moment from "moment";
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../../actions/posts";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
@@ -24,7 +24,7 @@ const Post = ({ post, setCurrentId }) => {
   const openPost = (e) => {
     // dispatch(getPost(post._id, history));
 
-    navigate(`/posts/${post._id}`,{state: post._id});
+    navigate(`/posts/${post._id}`, { state: post._id });
   };
 
   const deleteUser = async (userId) => {
@@ -53,39 +53,49 @@ const Post = ({ post, setCurrentId }) => {
         className={classes.cardAction}
         onClick={openPost}
       >
-      {/* <CardMedia
+        {/* <CardMedia
         className={classes.media}
         image={post.ProfileImg}
         title={post.title}
       /> */}
-      {/* <div className={classes.overlay}>
+        {/* <div className={classes.overlay}>
         <Typography variant="h6">{post.creator}</Typography>
         <Typography variant="body2">
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div> */}
-      <div className={classes.overlay2}>
-        <Button
-          stlye={{ color: "white" }}
-          size="small"
-          onClick={() => setCurrentId(post._id)}
-        >
-          {/* <MoreHorizIcon fontSize="default" /> */}
-        </Button>
-      </div>
-      <div className={classes.details}>
-        {/* <Typography variant="body2" color="textSecondary">
+        <div className={classes.overlay2}>
+          <Button
+            stlye={{ color: "white" }}
+            size="small"
+            onClick={() => setCurrentId(post._id)}
+          >
+            {/* <MoreHorizIcon fontSize="default" /> */}
+          </Button>
+        </div>
+        <div className={classes.details}>
+          {/* <Typography variant="body2" color="textSecondary">
           {post.tags.map((tag) => `#${tag} `)}
         </Typography> */}
-      </div>
-      <Typography className={classes.title} variant="h5" gutterBottom>
+        </div>
+        <Typography
+          className={classes.title}
+          variant="h5"
+          gutterBottom
+          style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 17 }}
+        >
           {post.Name}
         </Typography>
-      <CardContent>
-        <Typography  variant="body2" color="textSecondary" component="p">
-          {post.EmpCode}
-        </Typography>
-      </CardContent>
+        <CardContent>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 15 }}
+          >
+            Emp Code : {post.EmpCode}
+          </Typography>
+        </CardContent>
       </ButtonBase>
       <CardActions className={classes.cardActions}>
         {/* <Button size="small" color="primary" onClick={() => {}}>
@@ -93,8 +103,16 @@ const Post = ({ post, setCurrentId }) => {
           &nbsp; Like &nbsp;
           {post.likeCount}
         </Button> */}
-        <Button size="small" color="primary" onClick={() => deleteUser(post._id)}>
-          <DeleteIcon fontSize="small" />
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => deleteUser(post._id)}
+          style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 12 }}
+        >
+          <DeleteIcon
+            fontSize="small"
+            style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 15, marginRight: 5 }}
+          />
           Delete
         </Button>
       </CardActions>

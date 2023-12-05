@@ -30,8 +30,9 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import MaterialTable from "material-table";
 import { getPost, getPostsBySearch } from "../../actions/posts";
 import useStyles from "./styles";
+
 import axios from "axios";
-import { usePDF } from "react-to-pdf";
+import { Margin, usePDF } from "react-to-pdf";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import ModeIcon from "@mui/icons-material/Mode";
 import Tooltip from "@mui/material/Tooltip";
@@ -55,7 +56,9 @@ const EmployeeDetails = () => {
   const [pdfName, setPdfName] = useState("");
   const [open, setOpen] = React.useState(false);
   const { toPDF, targetRef } = usePDF({
+    method: "save",
     filename: `${pdfName.replace(" ", "_")}.pdf`,
+    page: { margin: Margin.LARGE },
   });
   console.log("uselocation", state);
   const [isStateSet, setIsStateSet] = useState(false);
@@ -71,7 +74,6 @@ const EmployeeDetails = () => {
     console.log(name);
     console.log(pdfName);
     setIsStateSet(true);
-
     //  if(pdfName){toPDF()}
   };
   useEffect(() => {
@@ -136,11 +138,21 @@ const EmployeeDetails = () => {
 
   const switchMode = () => {
     // setFormData(initialState);
-    history('/Edit',{state: state});
+    history("/Edit", { state: state });
     // setEditable((editable) => !editable);
   };
   const positngColumns = [
-    { title: "Place of Posting", field: "placeOfPosting" },
+    {
+      title: "Place of Posting",
+      field: "placeOfPosting",
+      // cellStyle: {
+      //   backgroundColor: '#039be5',
+      //   color: '#FFF'
+      // },
+      // headerStyle: {
+      //   backgroundColor: '#039be5',
+      // }
+    },
     { title: "From", field: "From" },
     { title: "To", field: "to" },
     { title: "Duration", field: "duration" },
@@ -188,6 +200,7 @@ const EmployeeDetails = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
   };
+
   return (
     <Paper
       style={{ padding: "20px", borderRadius: "15px" }}
@@ -204,23 +217,16 @@ const EmployeeDetails = () => {
             action={action}
           />
           <Tooltip title="Export Data as PDF" className="exportData">
-            <IconButton>
+            <IconButton color="primary" size="large">
               <SaveAltIcon
                 fontSize="large"
                 color="Blue"
                 onClick={() => downloadUserData(employeeDetails.Name)}
               />
             </IconButton>
-            {/* <IconButton>
-              <ModeIcon
-                fontSize="large"
-                color="gray"
-                onClick={() => downloadUserData(employeeDetails.Name)}
-              />
-            </IconButton> */}
           </Tooltip>
           <Tooltip title="Edit" className="exportData">
-            <IconButton>
+            <IconButton color="primary" size="large">
               <ModeIcon
                 fontSize="large"
                 color="gray"
@@ -236,25 +242,33 @@ const EmployeeDetails = () => {
               </Grid>
             ) : (
               <div>
-                <section style={{ backgroundColor: "#eee" }}>
+                <section
+                  style={{
+                    backgroundColor: "#eff4fc",
+                    padding: 15,
+                    borderRadius: 7,
+                  }}
+                >
                   <MDBContainer className="py-5">
                     <img
                       className={classes.image}
                       src={memories}
                       alt="memories"
                       height="70"
+                      style={{ borderRadius: 10 }}
                     />
+                    <Divider style={{ margin: "10px" }} />
                     <Typography
                       // component={Link}
                       to="/"
                       className={classes.heading}
                       variant="h4"
                       align="center"
-                      style={{ fontWeight: 500 }}
+                      style={{ fontFamily: "Poppins", fontWeight: 800 }}
                     >
                       EMPLOYEE DETAILS
                     </Typography>
-                    <Divider style={{ margin: "20px 0" }} />
+                    <Divider style={{ margin: "10px 0" }} />
                     <MDBRow>
                       <MDBCol lg="4">
                         <MDBCard className="mb-4">
@@ -270,10 +284,16 @@ const EmployeeDetails = () => {
                               style={{ width: "150px" }}
                               fluid
                             />
-                            <p className="text-muted mb-1">
+                            <p
+                              className="text-muted mb-1"
+                              style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                            >
                               {employeeDetails?.Name}
                             </p>
-                            <p className="text-muted mb-4">
+                            <p
+                              className="text-muted mb-4"
+                              style={{ fontFamily: "Poppins", fontWeight: 500 }}
+                            >
                               {employeeDetails?.Rank}
                             </p>
                             {/* <div className="d-flex justify-content-center mb-2">
@@ -283,21 +303,47 @@ const EmployeeDetails = () => {
                         </MDBBtn>
                       </div> */}
                             <MDBRow className="d-flex justify-content-center mb-2">
-                              <MDBCol sm="3">
-                                <MDBCardText>Emp Code:</MDBCardText>
+                              <MDBCol sm="5">
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Emp Code:
+                                </MDBCardText>
                               </MDBCol>
-                              <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                              <MDBCol sm="7">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 500,
+                                  }}
+                                >
                                   {employeeDetails?.EmpCode}
                                 </MDBCardText>
                               </MDBCol>
                             </MDBRow>
                             <MDBRow className="d-flex justify-content-center mb-2">
-                              <MDBCol sm="3">
-                                <MDBCardText>Belt No:</MDBCardText>
+                              <MDBCol sm="5">
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Belt No:
+                                </MDBCardText>
                               </MDBCol>
-                              <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                              <MDBCol sm="7">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 500,
+                                  }}
+                                >
                                   {employeeDetails?.BeltNo}
                                 </MDBCardText>
                               </MDBCol>
@@ -320,10 +366,23 @@ const EmployeeDetails = () => {
                           <MDBCardBody>
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Full Name</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Full Name :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.Name}
                                 </MDBCardText>
                               </MDBCol>
@@ -331,10 +390,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Email</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Email :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.email === ""
                                     ? "--"
                                     : employeeDetails?.email}
@@ -344,10 +416,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Fathers Name</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Fathers Name :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.FathersOrHusbandsName === ""
                                     ? "--"
                                     : employeeDetails?.FathersOrHusbandsName}
@@ -355,23 +440,25 @@ const EmployeeDetails = () => {
                               </MDBCol>
                             </MDBRow>
                             <hr />
-                            {/* <MDBRow>
-                            <MDBCol sm="3">
-                              <MDBCardText>Emp Code:</MDBCardText>
-                            </MDBCol>
-                            <MDBCol sm="9">
-                              <MDBCardText className="text-muted">
-                                {employeeDetails?.EmpCode}
-                              </MDBCardText>
-                            </MDBCol>
-                          </MDBRow>
-                          <hr /> */}
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Date of Birth :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Date of Birth :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.Dob}
                                 </MDBCardText>
                               </MDBCol>
@@ -380,10 +467,23 @@ const EmployeeDetails = () => {
 
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Gender :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Gender :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.Gender}
                                 </MDBCardText>
                               </MDBCol>
@@ -391,12 +491,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   Education Qualification :
                                 </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.EdnQualification}
                                 </MDBCardText>
                               </MDBCol>
@@ -404,10 +515,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Address :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Address :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.PermanentAddress === ""
                                     ? "--"
                                     : employeeDetails?.PermanentAddress}
@@ -417,10 +541,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Date of Appointment :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Date of Appointment :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.Doa}
                                 </MDBCardText>
                               </MDBCol>
@@ -428,10 +565,23 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Date of Posting :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Date of Posting :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
                                   {employeeDetails?.Dop}
                                 </MDBCardText>
                               </MDBCol>
@@ -439,11 +589,28 @@ const EmployeeDetails = () => {
                             <hr />
                             <MDBRow>
                               <MDBCol sm="3">
-                                <MDBCardText>Place of Posting :</MDBCardText>
+                                <MDBCardText
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  Place of Posting :
+                                </MDBCardText>
                               </MDBCol>
                               <MDBCol sm="9">
-                                <MDBCardText className="text-muted">
-                                  {employeeDetails?.Posting[employeeDetails?.Posting.length - 1].placeOfPosting}
+                                <MDBCardText
+                                  className="text-muted"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    fontWeight: 600,
+                                  }}
+                                >
+                                  {
+                                    employeeDetails?.Posting[
+                                      employeeDetails?.Posting.length - 1
+                                    ].placeOfPosting
+                                  }
                                 </MDBCardText>
                               </MDBCol>
                             </MDBRow>
@@ -453,9 +620,300 @@ const EmployeeDetails = () => {
                       </MDBCol>
                     </MDBRow>
                   </MDBContainer>
+                  <Divider style={{ margin: "10px 0" }} />
+
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                    <strong>Leaves Details</strong>
+                  </Typography>
+                  <MDBCard className="mb-4 mb-lg-0">
+                    <MDBCardBody className="p-0">
+                      <MDBListGroup flush className="rounded-3">
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Casual Leave
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.CL === ""
+                              ? "--"
+                              : employeeDetails?.CL}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Child Care Leave (CCL)
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.CCL === ""
+                              ? "--"
+                              : employeeDetails?.CCL}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Earned Leave (EL)
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.EL === ""
+                              ? "--"
+                              : employeeDetails?.EL}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Half-Pay Leave (HPL)
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.HPL === ""
+                              ? "--"
+                              : employeeDetails?.HPL}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Maternity Leave
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.Maternity === ""
+                              ? "--"
+                              : employeeDetails?.Maternity}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            Others Leave
+                          </MDBCardText>
+                          <MDBCardText
+                            style={{ fontFamily: "Poppins", fontWeight: 600 }}
+                          >
+                            {employeeDetails?.Others === ""
+                              ? "--"
+                              : employeeDetails?.Others}
+                          </MDBCardText>
+                        </MDBListGroupItem>
+                      </MDBListGroup>
+                    </MDBCardBody>
+                  </MDBCard>
+
+                  <Divider style={{ margin: "20px 0" }} />
+                  {/* <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                    <strong>Posting Details</strong>
+                  </Typography> */}
+                  <div style={{ maxWidth: "100%" }}>
+                    <MaterialTable
+                      title={
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          style={{ fontFamily: "Poppins", fontWeight: 700 }}
+                        >
+                          Posting Details
+                        </Typography>
+                      }
+                      data={employeeDetails?.Posting}
+                      columns={positngColumns}
+                      options={{
+                        search: false,
+                        sorting: false,
+                        exportButton: true,
+                        rowStyle: {
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                        headerStyle: {
+                          backgroundColor: "#01579b",
+                          color: "#FFF",
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  </div>
+
+                  <Divider style={{ margin: "20px 0" }} />
+                  {/* <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                   Rewards
+                  </Typography> */}
+                  <div style={{ maxWidth: "100%" }}>
+                    <MaterialTable
+                      title={
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          style={{ fontFamily: "Poppins", fontWeight: 700 }}
+                        >
+                          Rewards Details
+                        </Typography>
+                      }
+                      data={employeeDetails?.Rewards}
+                      columns={rewardsColumns}
+                      options={{
+                        search: false,
+                        sorting: false,
+                        exportButton: true,
+                        rowStyle: {
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                        headerStyle: {
+                          backgroundColor: "#01579b",
+                          color: "#FFF",
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  </div>
+                  <Divider style={{ margin: "20px 0" }} />
+                  {/* <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                    <strong>Punishments</strong>
+                  </Typography> */}
+                  <div style={{ maxWidth: "100%" }}>
+                    <MaterialTable
+                      title={
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          style={{ fontFamily: "Poppins", fontWeight: 700 }}
+                        >
+                          Punishments Details
+                        </Typography>
+                      }
+                      data={employeeDetails?.Punishments}
+                      columns={punishmentsColumns}
+                      options={{
+                        search: false,
+                        sorting: false,
+                        exportButton: true,
+                        rowStyle: {
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                        headerStyle: {
+                          backgroundColor: "#01579b",
+                          color: "#FFF",
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  </div>
+                  <Divider style={{ margin: "20px 0" }} />
+                  {/* <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                    <strong>Professional Qualifications</strong>
+                  </Typography> */}
+                  <div style={{ maxWidth: "100%" }}>
+                    <MaterialTable
+                      title={
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          style={{ fontFamily: "Poppins", fontWeight: 700 }}
+                        >
+                          Professional Qualifications
+                        </Typography>
+                      }
+                      data={employeeDetails?.Qualification}
+                      columns={professionalQualificationColumns}
+                      options={{
+                        search: false,
+                        sorting: false,
+                        exportButton: true,
+                        rowStyle: {
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                        headerStyle: {
+                          backgroundColor: "#01579b",
+                          color: "#FFF",
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  </div>
+                  <Divider style={{ margin: "20px 0" }} />
+                  {/* <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontFamily: "Poppins", fontWeight: 800 }}
+                  >
+                    <strong>Special Training</strong>
+                  </Typography> */}
+                  <div style={{ maxWidth: "100%" }}>
+                    <MaterialTable
+                      title={
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          style={{ fontFamily: "Poppins", fontWeight: 700 }}
+                        >
+                          Special Training
+                        </Typography>
+                      }
+                      data={employeeDetails?.Training}
+                      columns={SpecialTrainingColumns}
+                      options={{
+                        search: false,
+                        sorting: false,
+                        exportButton: true,
+                        rowStyle: {
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                        headerStyle: {
+                          backgroundColor: "#01579b",
+                          color: "#FFF",
+                          fontFamily: "Poppins",
+                          fontWeight: 500,
+                        },
+                      }}
+                    />
+                  </div>
                 </section>
 
-                <Divider style={{ margin: "20px 0" }} />
+                {/* <Divider style={{ margin: "20px 0" }} />
                 <Typography variant="h6" gutterBottom>
                   <strong>Leaves Details</strong>
                 </Typography>
@@ -593,7 +1051,7 @@ const EmployeeDetails = () => {
                       exportButton: true,
                     }}
                   />
-                </div>
+                </div> */}
               </div>
             )}
           </div>

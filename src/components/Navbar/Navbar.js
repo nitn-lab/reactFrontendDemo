@@ -47,6 +47,7 @@ const Navbar = () => {
           className={classes.heading}
           variant="h5"
           align="center"
+          style={{ fontFamily: "Poppins", fontWeight: 700, fontSize: 27}}
         >
           PERSONAL INFORMATION SYSTEM (PIS)
         </Typography>
@@ -56,19 +57,20 @@ const Navbar = () => {
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
-              alt={user.result.name}
+              alt={user.result.Name}
               src={user.result.imageUrl}
             >
-              {/* {user.result.name.charAt(0)} */}
+              {user.result.Name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h6">
-              {user.result.name}
+            <Typography className={classes.userName} variant="h6" style={{ fontFamily: "Poppins", fontWeight: 500}}>
+              {user.result.Name}
             </Typography>
             <Button
               variant="contained"
               className={classes.logout}
               color="secondary"
               onClick={logout}
+              style={{ fontFamily: "Poppins", fontWeight: 500}}
             >
               logout
             </Button>
@@ -79,6 +81,7 @@ const Navbar = () => {
             to="/auth"
             variant="contained"
             color="primary"
+            style={{ fontFamily: "Poppins", fontWeight: 500}}
           >
             SignIn
           </Button>

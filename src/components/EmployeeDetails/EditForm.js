@@ -63,8 +63,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const [postingData, setPostingData] = useState([]);
   const [rewardsData, setRewardsData] = useState([]);
   const [punishmentData, setPunishmentData] = useState([]);
-  const [specialTrainingData, setSpecialTrainingData] =
-    useState([]);
+  const [specialTrainingData, setSpecialTrainingData] = useState([]);
   const [professionalQualification, setProfessionalQualification] = useState(
     []
   );
@@ -349,7 +348,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Employee Personal Details
               </Typography>
               {/* <Typography sx={{ color: "text.secondary" }}>
@@ -558,10 +557,10 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel2bh-content"
               id="panel2bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Complete Posting Details
               </Typography>
-              <Typography sx={{ color: "text.secondary" }}>
+              <Typography sx={{ color: "text.secondary" }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Please Add All The Posting Details Of the Employee
               </Typography>
             </AccordionSummary>
@@ -604,6 +603,16 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -617,10 +626,10 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel3bh-content"
               id="panel3bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Rewards
               </Typography>
-              <Typography sx={{ color: "text.secondary" }}>
+              <Typography sx={{ color: "text.secondary" }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Please All the Rewards Given to Employee
               </Typography>
             </AccordionSummary>
@@ -662,6 +671,16 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -675,7 +694,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Punishments
               </Typography>
             </AccordionSummary>
@@ -717,6 +736,16 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -730,7 +759,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Leaves
               </Typography>
             </AccordionSummary>
@@ -822,7 +851,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Professional Qualifications
               </Typography>
             </AccordionSummary>
@@ -867,6 +896,16 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -880,7 +919,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Special Training
               </Typography>
             </AccordionSummary>
@@ -922,6 +961,16 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -934,6 +983,7 @@ const Form = ({ currentId, setCurrentId }) => {
             type="submit"
             fullWidth
             onClick={() => httpRequest()}
+            style={{ fontFamily: "Poppins", fontWeight: 500, marginTop: 15}}
           >
             Submit
           </Button>

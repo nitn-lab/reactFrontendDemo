@@ -35,8 +35,7 @@ const Home = () => {
     const userdetails = JSON.parse(localStorage.getItem("userDetails"));
 
     // console.log("userdetails", userdetails["result"]["level"]);
-    console.log("userdetails", userdetails.result.Level);
-
+    console.log("userdetails", userdetails.result);
 
     setsetLevel(userdetails.result.Level);
     dispatch(getPosts());
@@ -135,17 +134,37 @@ const Home = () => {
               <TextField
                 name="search"
                 variant="outlined"
-                label="Search Employee by Name / Belt - No"
+                // label="Search Employee by Name / Belt - No"
+                label={
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{
+                      fontFamily: "Poppins",
+                      fontWeight: 500,
+                      alignItems: "center",
+                      fontSize: 15,
+                    }}
+                  >
+                    Search Employee by Name / Belt - No
+                  </Typography>
+                }
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                style={{ fontFamily: "Poppins", fontWeight: 500, marginTop: 7 }}
               />
 
               <Button
                 className={classes.searchButton}
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: 10 }}
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: 500,
+                  marginLeft: 10,
+                  fontSize: 15,
+                }}
                 onClick={() => SearchRequest()}
               >
                 Search
@@ -156,7 +175,12 @@ const Home = () => {
                   className={classes.searchButton}
                   variant="contained"
                   color="primary"
-                  style={{ marginLeft: 10 }}
+                  style={{
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                    marginLeft: 10,
+                    fontSize: 15,
+                  }}
                   onClick={switchMode}
                 >
                   Add Emp

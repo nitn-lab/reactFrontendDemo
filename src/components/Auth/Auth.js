@@ -65,7 +65,7 @@ const Auth = () => {
           <Avatar className={classes.avatar}>
             {/* <LockOutlinedIcon /> */}
           </Avatar>
-          <Typography variant="h5">
+          <Typography variant="h5" style={{ fontFamily: "Poppins", fontWeight: 600 }}>
             {isSignup ? "Sign up" : "Sign In"}
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
@@ -121,6 +121,7 @@ const Auth = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              style={{ fontFamily: "Poppins", fontWeight: 600 }}
             >
               {isSignup ? "Sign Up" : "Sign In"}
             </Button>
