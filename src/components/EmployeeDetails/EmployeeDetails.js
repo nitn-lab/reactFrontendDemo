@@ -607,9 +607,7 @@ const EmployeeDetails = () => {
                                   }}
                                 >
                                   {
-                                    employeeDetails?.Posting[
-                                      employeeDetails?.Posting.length - 1
-                                    ].placeOfPosting
+                                    employeeDetails?.Posting[employeeDetails?.Posting.length - 1]?.placeOfPosting
                                   }
                                 </MDBCardText>
                               </MDBCol>

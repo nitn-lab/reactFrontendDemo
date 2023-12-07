@@ -21,6 +21,12 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 // import { Data } from "./jsonData2";
 import moment from "moment";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 const postingList = [];
 
 const rewardsList = [];
@@ -87,7 +93,7 @@ const Form = ({ currentId, setCurrentId }) => {
       Password: postData.Password, // if rights
       FathersOrHusbandsName: postData.FathersOrHusbandsName,
       Dob: postData.Dob,
-      Doa: postData.Dob,
+      Doa: postData.Doa,
       EdnQualification: postData.EdnQualification,
       Category: "yyy",
       PermanentAddress: postData.PermanentAddress,
@@ -120,7 +126,7 @@ const Form = ({ currentId, setCurrentId }) => {
           Password: postData.Password, // if rights
           FathersOrHusbandsName: postData.FathersOrHusbandsName,
           Dob: postData.Dob,
-          Doa: postData.Dob,
+          Doa: postData.Doa,
           EdnQualification: postData.EdnQualification,
           Category: "yyy",
           PermanentAddress: postData.PermanentAddress,
@@ -262,7 +268,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Employee Personal Details
               </Typography>
               {/* <Typography sx={{ color: "text.secondary" }}>
@@ -282,7 +288,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Email"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Email
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.email}
                   onChange={
@@ -293,7 +311,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Name"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Name
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.creator}
                   onChange={
@@ -304,7 +334,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Belt No"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Belt No
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.creator}
                   onChange={
@@ -315,7 +357,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Pis No"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Pis No
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.creator}
                   onChange={
@@ -326,7 +380,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="title"
                   variant="outlined"
-                  label="Rank"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Rank
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.title}
                   onChange={(e) =>
@@ -336,7 +402,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Fathers Name"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Fathers Name
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -350,7 +428,7 @@ const Form = ({ currentId, setCurrentId }) => {
                   </DemoContainer>
                 </LocalizationProvider> */}
 
-                <TextField
+                {/* <TextField
                   name="tags"
                   variant="outlined"
                   label="Date of Birth YYYY-MM-DD"
@@ -372,11 +450,23 @@ const Form = ({ currentId, setCurrentId }) => {
                     postData.Doa = e.target.value;
                     setPostData({ ...postData });
                   }}
-                />
+                /> */}
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Edu. Qualification"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Edu. Qualification
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -387,7 +477,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Emp_Code"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Emp_Code
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -398,7 +500,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Password"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Password
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -409,7 +523,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="message"
                   variant="outlined"
-                  label="Permanent Address"
+                  label={
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Permanent Address
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.message}
                   onChange={(e) =>
@@ -423,7 +549,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Gender"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Gender
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -432,8 +570,91 @@ const Form = ({ currentId, setCurrentId }) => {
                   }}
                 />
 
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer
+                    sx={{
+                      // bgcolor: "background.paper",
+                      // boxShadow: 1,
+                      // borderRadius: 2,
+                      p: 1,
+                      // minWidth: 300,
+                      width: "100%",
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                    components={["DatePicker"]}
+                  >
+                    <DemoItem>
+                      <DatePicker
+                        sx={{
+                          bgcolor: "background.paper",
+                          boxShadow: 1,
+                          borderRadius: 2,
+                          p: 2,
+                          minWidth: 300,
+                        }}
+                        label={
+                          <Typography
+                            variant="h6"
+                            gutterBottom
+                            style={{ fontFamily: "Poppins", fontWeight: 500 }}
+                          >
+                            Date of Birth
+                          </Typography>
+                        }
+                        // defaultValue={postData.Dob}
+                        value={postData.Dob}
+                        onChange={(e) => {
+                          // console.log(
+                          //   "ss",
+                          //   moment(e.$d).format("YYYY-MM-DD"),
+                          //   e.$d
+                          // );
+                          postData.Dob = moment(e?.$d).format("YYYY-MM-DD");
+                          setPostData({ ...postData });
+                        }}
+                      />
+                    </DemoItem>
+                    <DemoItem>
+                      <DatePicker
+                        sx={{
+                          bgcolor: "background.paper",
+                          boxShadow: 1,
+                          borderRadius: 2,
+                          p: 2,
+                          minWidth: 300,
+                        }}
+                        label={
+                          <Typography
+                            variant="h6"
+                            gutterBottom
+                            style={{ fontFamily: "Poppins", fontWeight: 500 }}
+                          >
+                            Date of Appointment
+                          </Typography>
+                        }
+                        // defaultValue={postData.Doa}
+                        value={postData.Doa}
+                        onChange={(e) => {
+                          // console.log(
+                          //   "Doa",
+                          //   moment(e.$d).format("YYYY-MM-DD"),
+                          //   e.$d
+                          // );
+                          postData.Doa = moment(e?.$d).format("YYYY-MM-DD");
+                          setPostData({ ...postData });
+                        }}
+                      />
+                    </DemoItem>
+                  </DemoContainer>
+                </LocalizationProvider>
+
                 <div className={classes.fileInput}>
-                  <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                  <Typography style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }} sx={{ width: "33%", flexShrink: 0 }}>
                     Admin
                   </Typography>
                   <Radio
@@ -445,7 +666,11 @@ const Form = ({ currentId, setCurrentId }) => {
                   />
                 </div>
                 <div className={classes.fileInput}>
-                  <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                  <Typography style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }} sx={{ width: "33%", flexShrink: 0 }}>
                     Upload Photo
                   </Typography>
                   <FileBase
@@ -471,10 +696,10 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel2bh-content"
               id="panel2bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Complete Posting Details
               </Typography>
-              <Typography sx={{ color: "text.secondary" }}>
+              <Typography sx={{ color: "text.secondary" }} style={{ fontFamily: "Poppins", fontWeight: 500 }}>
                 Please Add All The Posting Details Of the Employee
               </Typography>
             </AccordionSummary>
@@ -517,6 +742,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  search: false,
+                  sorting: false,
+                  exportButton: true,
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -530,10 +768,10 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel3bh-content"
               id="panel3bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Rewards
               </Typography>
-              <Typography sx={{ color: "text.secondary" }}>
+              <Typography sx={{ color: "text.secondary" }} style={{ fontFamily: "Poppins", fontWeight: 500 }}>
                 Please All the Rewards Given to Employee
               </Typography>
             </AccordionSummary>
@@ -575,6 +813,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  search: false,
+                  sorting: false,
+                  exportButton: true,
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -588,7 +839,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Punishments
               </Typography>
             </AccordionSummary>
@@ -630,6 +881,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  search: false,
+                  sorting: false,
+                  exportButton: true,
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -643,7 +907,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Leaves
               </Typography>
             </AccordionSummary>
@@ -660,7 +924,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Casual Leave"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Casual Leave
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.creator}
                   onChange={(e) => {
@@ -671,7 +947,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="creator"
                   variant="outlined"
-                  label="Earned Leaves"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      Earned Leaves
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.creator}
                   onChange={(e) => {
@@ -682,7 +970,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="title"
                   variant="outlined"
-                  label="HPL"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                      HPL
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.title}
                   onChange={(e) => {
@@ -693,7 +993,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="CCL"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                     CCL
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -704,7 +1016,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Maternity"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                     Maternity
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -715,7 +1039,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField
                   name="tags"
                   variant="outlined"
-                  label="Others"
+                  label={
+                    <Typography
+                      variant="h6"
+                      // gutterBottom
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: 500,
+                        fontSize: 15,
+                      }}
+                    >
+                     Others
+                    </Typography>
+                  }
                   fullWidth
                   value={postData.tags}
                   onChange={(e) => {
@@ -735,8 +1071,8 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Professional Qualifications
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
+                Professional Qualifications
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -780,6 +1116,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  search: false,
+                  sorting: false,
+                  exportButton: true,
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -793,7 +1142,7 @@ const Form = ({ currentId, setCurrentId }) => {
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <Typography sx={{ width: "33%", flexShrink: 0 }} style={{ fontFamily: "Poppins", fontWeight: 700 }}>
                 Special Training
               </Typography>
             </AccordionSummary>
@@ -835,6 +1184,19 @@ const Form = ({ currentId, setCurrentId }) => {
                 options={{
                   actionsColumnIndex: -1,
                   addRowPosition: "first",
+                  search: false,
+                  sorting: false,
+                  exportButton: true,
+                  rowStyle: {
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#01579b",
+                    color: "#FFF",
+                    fontFamily: "Poppins",
+                    fontWeight: 500,
+                  },
                 }}
               />
             </AccordionDetails>
@@ -847,6 +1209,7 @@ const Form = ({ currentId, setCurrentId }) => {
             type="submit"
             fullWidth
             onClick={() => httpRequest()}
+            style={{ fontFamily: "Poppins", fontWeight: 500, marginTop: 15}}
           >
             Submit
           </Button>
