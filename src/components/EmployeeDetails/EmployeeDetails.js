@@ -582,7 +582,10 @@ const EmployeeDetails = () => {
                                     fontWeight: 600,
                                   }}
                                 >
-                                  {employeeDetails?.Dop}
+                                  {/* {employeeDetails?.Dop} */}
+                                  {
+                                    employeeDetails?.Posting[employeeDetails?.Posting.length - 1]?.From
+                                  }
                                 </MDBCardText>
                               </MDBCol>
                             </MDBRow>

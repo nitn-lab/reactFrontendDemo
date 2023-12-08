@@ -80,7 +80,7 @@ const Home = () => {
           query: search,
         })
         .then((response) => {
-          console.log("serach request response", response.data);
+          // console.log("serach request response", response.data);
           if (response?.data?.length === 0) {
             setEmpty(true);
             setLoading(true);
@@ -193,7 +193,7 @@ const Home = () => {
             {addEmployee ? (
               empty ? (
                 searchData?.map((p) => {
-                  console.log("searchPost map", p);
+                  // console.log("searchPost map", p);
                   return (
                     <Grid key={p._id} item xs={12} sm={12} md={12} lg={2}>
                       <Post post={p} setCurrentId={setCurrentId} />

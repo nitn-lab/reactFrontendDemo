@@ -26,7 +26,7 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
+import { useNavigate} from "react-router-dom";
 const postingList = [];
 
 const rewardsList = [];
@@ -75,7 +75,7 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
-
+  const history = useNavigate();
   const httpRequest = async () => {
     // console.log("json", Data);
     setLoading(false);
@@ -148,6 +148,7 @@ const Form = ({ currentId, setCurrentId }) => {
         })
         .then((resposne) => {
           console.log("Add Response from Api", resposne.data);
+          history("/posts");
           setLoading(true);
         })
         .catch((error) => {
