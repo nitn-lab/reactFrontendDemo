@@ -6,7 +6,25 @@ import {
   AppBar,
   TextField,
   Button,
+  Divider,
 } from "@material-ui/core";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBBreadcrumb,
+  MDBBreadcrumbItem,
+  MDBProgress,
+  MDBProgressBar,
+  MDBIcon,
+  MDBListGroup,
+  MDBListGroupItem,
+} from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 import Posts from "../Posts/Posts";
@@ -20,6 +38,7 @@ import { ThreeDots } from "react-loader-spinner";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { Data } from "../Form/jsonData";
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
   const [level, setsetLevel] = useState(0);
@@ -31,12 +50,15 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchData, setSearchData] = useState();
   const [open, setOpen] = React.useState(false);
+  const [ids, setIds] = useState([])
+
   useEffect(() => {
     const userdetails = JSON.parse(localStorage.getItem("userDetails"));
-
+    const userdetails2 = localStorage.getItem("currentIdViewed");
     // console.log("userdetails", userdetails["result"]["level"]);
-    console.log("userdetails", userdetails.result);
-
+    const av = ids.push(userdetails2);
+    console.log("userdetails", userdetails.result, userdetails2, av, ids );
+  
     setsetLevel(userdetails.result.Level);
     dispatch(getPosts());
   }, [currentId, dispatch]);
@@ -190,12 +212,34 @@ const Home = () => {
               )}
             </AppBar>
 
+
+            
+            {/* <Typography
+              to="/"
+              className={classes.heading}
+              variant="h8"
+              // align="center"
+              style={{ fontFamily: "Poppins", fontWeight: 800 }}
+            >
+              Recently Viewed
+            </Typography> */}
+
+{/*             
+              {Data?.map((p) => {
+                // console.log("gffp", p);
+                return (
+                  <Grid container alignItems="stretch" xs={12} sm={12} md={12}>
+                    <Post post={p} setCurrentId={setCurrentId} />
+                  </Grid>
+                );
+              })} */}
+
             {addEmployee ? (
               empty ? (
                 searchData?.map((p) => {
                   // console.log("searchPost map", p);
                   return (
-                    <Grid key={p._id} item xs={12} sm={12} md={12} lg={2}>
+                    <Grid key={p._id} item xs={12} sm={12} md={12} lg={12}>
                       <Post post={p} setCurrentId={setCurrentId} />
                     </Grid>
                   );

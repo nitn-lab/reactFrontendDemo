@@ -47,3 +47,6 @@ export const deletePost = (id) => async (dispatch) => {
     console.log("DELETE", error);
   }
 };
+
+
+

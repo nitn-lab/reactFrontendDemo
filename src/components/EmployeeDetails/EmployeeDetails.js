@@ -64,7 +64,13 @@ const EmployeeDetails = () => {
   const [isStateSet, setIsStateSet] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [editable, setEditable] = useState(false);
+  const [level, setsetLevel] = useState(0);
 
+  useEffect(() => {
+    const userdetails = JSON.parse(localStorage.getItem("userDetails"));
+    console.log("ed", userdetails);
+    setsetLevel(userdetails.result.Level);
+  }, []);
   useEffect(() => {
     findUserById();
   }, [state]);
@@ -225,15 +231,19 @@ const EmployeeDetails = () => {
               />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Edit" className="exportData">
-            <IconButton color="primary" size="large">
-              <ModeIcon
-                fontSize="large"
-                color="gray"
-                onClick={() => switchMode()}
-              />
-            </IconButton>
-          </Tooltip>
+          {level === "1" ? (
+            <Tooltip title="Edit" className="exportData">
+              <IconButton color="primary" size="large">
+                <ModeIcon
+                  fontSize="large"
+                  color="gray"
+                  onClick={() => switchMode()}
+                />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <p></p>
+          )}
 
           <div>
             {editable ? (
@@ -584,7 +594,9 @@ const EmployeeDetails = () => {
                                 >
                                   {/* {employeeDetails?.Dop} */}
                                   {
-                                    employeeDetails?.Posting[employeeDetails?.Posting.length - 1]?.From
+                                    employeeDetails?.Posting[
+                                      employeeDetails?.Posting.length - 1
+                                    ]?.From
                                   }
                                 </MDBCardText>
                               </MDBCol>
@@ -610,7 +622,9 @@ const EmployeeDetails = () => {
                                   }}
                                 >
                                   {
-                                    employeeDetails?.Posting[employeeDetails?.Posting.length - 1]?.placeOfPosting
+                                    employeeDetails?.Posting[
+                                      employeeDetails?.Posting.length - 1
+                                    ]?.placeOfPosting
                                   }
                                 </MDBCardText>
                               </MDBCol>

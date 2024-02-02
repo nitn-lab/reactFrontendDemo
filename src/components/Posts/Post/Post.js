@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Card,
   CardContent,
@@ -18,13 +18,19 @@ import { deletePost } from "../../../actions/posts";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Post = ({ post, setCurrentId }) => {
+  const [level, setsetLevel] = useState(0);
   const classes = useStyles();
   const disptach = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const userdetails = JSON.parse(localStorage.getItem("userDetails"));
+    console.log("ed", userdetails);
+    setsetLevel(userdetails.result.Level);
+  }, [level]);
   const openPost = (e) => {
     // dispatch(getPost(post._id, history));
-
     navigate(`/posts/${post._id}`, { state: post._id });
+    localStorage.setItem('currentIdViewed', post._id);
   };
 
   const deleteUser = async (userId) => {
@@ -97,25 +103,30 @@ const Post = ({ post, setCurrentId }) => {
           </Typography>
         </CardContent>
       </ButtonBase>
-      <CardActions className={classes.cardActions}>
-        {/* <Button size="small" color="primary" onClick={() => {}}>
-          <ThumbUpAltIcon fontSize="small" />
-          &nbsp; Like &nbsp;
-          {post.likeCount}
-        </Button> */}
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => deleteUser(post._id)}
-          style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 12 }}
-        >
-          <DeleteIcon
-            fontSize="small"
-            style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 15, marginRight: 5 }}
-          />
-          Delete
-        </Button>
-      </CardActions>
+      {level === "1" ? (
+           <CardActions className={classes.cardActions}>
+           {/* <Button size="small" color="primary" onClick={() => {}}>
+             <ThumbUpAltIcon fontSize="small" />
+             &nbsp; Like &nbsp;
+             {post.likeCount}
+           </Button> */}
+           <Button
+             size="small"
+             color="primary"
+             onClick={() => deleteUser(post._id)}
+             style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 12 }}
+           >
+             <DeleteIcon
+               fontSize="small"
+               style={{ fontFamily: "Poppins", fontWeight: 500, fontSize: 15, marginRight: 5 }}
+             />
+             Delete
+           </Button>
+         </CardActions>
+          ) : (
+            <p></p>
+          )}
+      
     </Card>
   );
 };
