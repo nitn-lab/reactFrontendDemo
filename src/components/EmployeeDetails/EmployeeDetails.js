@@ -121,7 +121,7 @@ const EmployeeDetails = () => {
     try {
       await axios
         .get(
-          `https://reactbackend-demo.onrender.com/alluser/finduserbyid/${state}`
+          `http://54.234.124.75:5000/alluser/finduserbyid/${state}`
         )
         .then((response) => {
           console.log("findById", response.data);
