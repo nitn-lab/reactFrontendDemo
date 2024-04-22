@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // <<<<<<< HEAD
-const API = axios.create({ baseURL: "https://reactbackend-demo.onrender.com" });
+const API = axios.create({ baseURL: "http://54.234.124.75:5000" });
 // =======
 // const API = axios.create({ baseURL: 'https://reactbackend-demo.onrender.com' });
 // >>>>>>> e3240b2e699899968845958b4aafc63996c0c86c
