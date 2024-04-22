@@ -16,7 +16,7 @@ const Posts = ({ setCurrentId }) => {
   const getAllUsers = async () => {
     try {
       await axios
-        .get("https://reactbackend-demo.onrender.com/alluser/getalluser", {
+        .get("http://54.234.124.75:5000/alluser/getalluser", {
           headers: {
             "Content-Type": "application/json",
           },
