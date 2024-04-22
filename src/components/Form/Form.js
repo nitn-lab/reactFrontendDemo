@@ -112,7 +112,7 @@ const Form = ({ currentId, setCurrentId }) => {
     console.log("data add", data);
     try {
       axios
-        .post("https://reactbackend-demo.onrender.com/alluser/adduser", {
+        .post("http://54.234.124.75:5000/alluser/adduser", {
           email: postData.email,
           Name: postData.Name,
           Rank: postData.Rank,
