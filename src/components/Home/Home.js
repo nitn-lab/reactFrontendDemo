@@ -98,7 +98,7 @@ const Home = () => {
     setLoading(false);
     try {
       await axios
-        .post("https://reactbackend-demo.onrender.com/alluser/finduser", {
+        .post("http://54.234.124.75:5000/alluser/finduser", {
           query: search,
         })
         .then((response) => {
