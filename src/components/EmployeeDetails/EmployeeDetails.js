@@ -121,7 +121,7 @@ const EmployeeDetails = () => {
     try {
       await axios
         .get(
-          `http://54.234.124.75:5000/alluser/finduserbyid/${state}`
+          `https://dashboardukpr.in/pis-server/alluser/finduserbyid/${state}`
         )
         .then((response) => {
           console.log("findById", response.data);
