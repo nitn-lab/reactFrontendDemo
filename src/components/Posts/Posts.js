@@ -16,7 +16,7 @@ const Posts = ({ setCurrentId }) => {
   const getAllUsers = async () => {
     try {
       await axios
-        .get("http://54.234.124.75:5000/alluser/getalluser", {
+        .get("https://dashboardukpr.in/pis-server/alluser/getalluser", {
           headers: {
             "Content-Type": "application/json",
           },
