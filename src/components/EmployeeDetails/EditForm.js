@@ -83,7 +83,7 @@ const Form = ({ currentId, setCurrentId }) => {
     try {
       axios
         .get(
-          `http://54.234.124.75:5000/alluser/finduserbyid/${state}`
+          `https://dashboardukpr.in/pis-server/alluser/finduserbyid/${state}`
         )
         .then((response) => {
           console.log("findById EditPage", response.data);
@@ -189,7 +189,7 @@ const Form = ({ currentId, setCurrentId }) => {
     try {
       axios
         .post(
-          `https://reactbackend-demo.onrender.com/alluser/updateuser/${state}`,
+          `https://dashboardukpr.in/pis-server/alluser/updateuser/${state}`,
           {
             email: postData.email,
             Name: postData.Name,
