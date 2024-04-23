@@ -98,7 +98,7 @@ const Home = () => {
     setLoading(false);
     try {
       await axios
-        .post("http://54.234.124.75:5000/alluser/finduser", {
+        .post("https://dashboardukpr.in/pis-server/alluser/finduser", {
           query: search,
         })
         .then((response) => {
