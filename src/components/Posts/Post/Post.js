@@ -38,7 +38,7 @@ const Post = ({ post, setCurrentId }) => {
     try {
       await axios
         .delete(
-          `https://reactbackend-demo.onrender.com/alluser/deleteuser/${userId}`
+          `https://dashboardukpr.in/pis-server/alluser/deleteuser/${userId}`
         )
         .then((response) => {
           // console.log("delete status", response);
